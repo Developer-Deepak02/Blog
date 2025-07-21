@@ -22,23 +22,25 @@ const Header = () => {
 			>
 				<span className="px-2 py-1  text-white">MindReader</span>
 			</Link>
-			<form>
+			{/* <form>
 				<TextInput
 					type="text"
 					placeholder="Search..."
 					rightIcon={AiOutlineSearch}
 					className="hidden lg:inline"
 				/>
-			</form>
+			</form> */}
 			<div className="flex gap-2 md:order-2">
-				<Button className="lg:hidden" color={"gray"}>
+				<Button  color={"gray"}> {/*className="lg:hidden"*/}
 					<AiOutlineSearch />
 				</Button>
 				<Button className=" sm:inline hidden " color={"gray"}>
 					<FaMoon />
 				</Button>
 				<Link to="/signin">
-					<Button gradientDuoTone="purpleToBlue">Sign In</Button>
+					<Button gradientDuoTone="purpleToBlue" outline>
+						Sign In
+					</Button>
 				</Link>
 				<NavbarToggle />
 			</div>
