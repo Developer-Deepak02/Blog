@@ -20,7 +20,10 @@ const Header = () => {
 				to="/"
 				className="text-xl font-semibold text-white self-center whitespace-nowrap text:sm sm:text-xl dark:text-white"
 			>
-				<span className="px-2 py-1  text-white">MindReader</span>
+				<span className="px-2 py-1  border-2 border-white mr-2 rounded-lg text-2xl">
+				Mind
+				</span>
+				Draft
 			</Link>
 			{/* <form>
 				<TextInput
@@ -31,7 +34,9 @@ const Header = () => {
 				/>
 			</form> */}
 			<div className="flex gap-2 md:order-2">
-				<Button  color={"gray"}> {/*className="lg:hidden"*/}
+				<Button color={"gray"}>
+					{" "}
+					{/*className="lg:hidden"*/}
 					<AiOutlineSearch />
 				</Button>
 				<Button className=" sm:inline hidden " color={"gray"}>
