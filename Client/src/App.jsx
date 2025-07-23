@@ -7,6 +7,7 @@ import About from "./pages/About";
 import SignUp from "./pages/SignUp";
 import Header from "./Components/Header";
 import { ThemeModeScript } from "flowbite-react";
+import FooterCompoment from "./Components/Footer";
 
 const App = () => {
 	return (
@@ -22,6 +23,7 @@ const App = () => {
 					<Route path="/signup" element={<SignUp />} />
 					<Route path="/dashboard" element={<Dashbord />} />
 				</Routes>
+				<FooterCompoment/>
 			</BrowserRouter>
 		</>
 	);
