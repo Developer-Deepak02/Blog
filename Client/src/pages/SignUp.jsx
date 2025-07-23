@@ -1,8 +1,47 @@
-import { Button, Label, TextInput } from "flowbite-react";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+	// Handle input change
+	const [formData, setFormData] = useState({});
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		// logic to send formData to your backend
+		if (!formData.username || !formData.email || !formData.password) {
+			return setErrorMessage("All fields are required");
+		}
+		try {
+			setLoading(true);
+			setErrorMessage(null);
+			const res = await fetch("/api/auth/signup", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(formData),
+			});
+			const data = await res.json();
+			if (data.success === false) {
+				return setErrorMessage(data.message);
+			}
+			setLoading(false);
+			if (res.ok) {
+				navigate("/signin");
+			}
+		} catch (error) {
+			setErrorMessage(error.message);
+			setLoading(false);
+		}
+	};
+
 	return (
 		<div className="min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 px-4">
 			<div className="flex p-6 max-w-4xl w-full flex-col md:flex-row md:items-start gap-12">
@@ -42,7 +81,7 @@ const SignUp = () => {
 						Create your account
 					</h2>
 
-					<form className="space-y-4 flex flex-col">
+					<form className="space-y-4 flex flex-col" onSubmit={handleSubmit}>
 						<div>
 							<Label htmlFor="username" className="text-white">
 								Username
@@ -51,7 +90,7 @@ const SignUp = () => {
 								id="username"
 								type="text"
 								placeholder="Enter your username"
-								required
+								onChange={handleChange}
 							/>
 						</div>
 
@@ -63,7 +102,7 @@ const SignUp = () => {
 								id="email"
 								type="email"
 								placeholder="Enter your email"
-								required
+								onChange={handleChange}
 							/>
 						</div>
 
@@ -75,15 +114,23 @@ const SignUp = () => {
 								id="password"
 								type="password"
 								placeholder="Enter your password"
-								required
+								onChange={handleChange}
 							/>
 						</div>
 
 						<Button
 							type="submit"
+							disabled={loading}
 							className="w-full bg-blue-500 hover:bg-blue-600 text-white transition duration-200"
 						>
-							Sign Up
+							{loading ? (
+								<>
+									<Spinner size="sm" />
+									<span className="pl-3">Loading</span>
+								</>
+							) : (
+								"Sign Up"
+							)}
 						</Button>
 					</form>
 
@@ -96,6 +143,11 @@ const SignUp = () => {
 							Sign In
 						</Link>
 					</div>
+					{errorMessage && (
+						<Alert color="failure" className="mt-5">
+							{errorMessage}
+						</Alert>
+					)}
 				</div>
 			</div>
 		</div>
