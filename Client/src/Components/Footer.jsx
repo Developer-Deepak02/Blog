@@ -13,7 +13,7 @@ import { BsFacebook, BsTwitter, BsInstagram, BsGithub } from "react-icons/bs";
 
 const FooterCompoment = () => {
 	return (
-		<Footer container className="">
+		<Footer container className="rounded-none">
 			<div className="w-full max-w-7xl mx-auto">
 				<div className="grid w-full justify-between sm:flex md:grid-cols-1 ">
 					{/* logo */}
@@ -30,6 +30,10 @@ const FooterCompoment = () => {
 						<p className="text-xl font-semibold text-white mt-3">
 							<span className="font-light text-gray-300">Turn</span> Thoughts
 							into <span className="text-blue-400 font-bold">Reality</span>
+						</p>
+						<p className="text-sm text-gray-400 leading-relaxed mt-2">
+							Draft your ideas, notes, or blogs — all in one place with
+							MindDraft.
 						</p>
 					</div>
 					{/* Footer links */}
