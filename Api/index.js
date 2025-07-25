@@ -15,9 +15,9 @@ mongoose
 		console.error("Error connecting to MongoDB:", err);
 	});
 const app = express();
-
-app.listen(process.env.PORT, () => {
-	console.log(`Server is running on http://localhost:${process.env.PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+	console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 // routes
