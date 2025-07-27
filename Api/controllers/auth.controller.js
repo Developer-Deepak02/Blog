@@ -45,8 +45,8 @@ const SignIn = async (req, res, next) => {
 		}
 
 		const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-const { password: _, ...userDetails } = validUser._doc; // Exclude password from user details
-		
+		const { password: _, ...userDetails } = validUser._doc; // Exclude password from user details
+
 		res
 			.status(200)
 			.cookie("access_token", token, {
@@ -58,4 +58,42 @@ const { password: _, ...userDetails } = validUser._doc; // Exclude password from
 	}
 };
 
-module.exports = { SignUp, SignIn };
+const Google = async (req, res, next) => {
+	const { name, email, googlePhotoUrl } = req.body;
+	try {
+		const user = await User.findOne({ email }); // ✅ typo fixed
+		if (user) {
+			const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+			const { password: _, ...rest } = user._doc;
+			return res
+				.status(200)
+				.cookie("access_token", token, { httpOnly: true })
+				.json({ user: rest });
+		} else {
+			const genratedPassword =
+				Math.random().toString(36).slice(-8) +
+				Math.random().toString(36).slice(-8);
+			const hashedPassword = bcryptjs.hashSync(genratedPassword, 10);
+			const newUser = new User({
+				username:
+					name.toLowerCase().split(" ").join("") +
+					Math.random().toString(9).slice(-4),
+				email,
+				password: hashedPassword, // ✅ don't leave null
+				profilePicture: googlePhotoUrl,
+			});
+			await newUser.save();
+			const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+			const { password: _, ...rest } = newUser._doc;
+			return res
+				.status(201)
+				.cookie("access_token", token, { httpOnly: true })
+				.json({ user: rest }); // ✅ consistent output
+		}
+	} catch (error) {
+		console.error("Google auth error:", error);
+		next(error);
+	}
+};
+
+module.exports = { SignUp, SignIn, Google };

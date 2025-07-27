@@ -13,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
+    "firebase": "^12.0.0",
     "flowbite-react": "^0.11.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
