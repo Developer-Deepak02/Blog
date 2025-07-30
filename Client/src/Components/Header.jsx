@@ -33,13 +33,19 @@ const Header = () => {
 				Draft
 			</Link>
 
-			<div className="flex gap-2 md:order-2">
-				<Button color="gray">
+			<div className="flex gap-8 md:order-2 mr-3">
+				<form>
+					<TextInput
+						type="text"
+						placeholder="Search..."
+						rightIcon={AiOutlineSearch}
+						className="hidden lg:inline"
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</form>
+				{/* <Button color="gray">
 					<AiOutlineSearch />
-				</Button>
-				<Button className="hidden sm:inline" color="gray">
-					<FaMoon />
-				</Button>
+				</Button> */}
 				{currentUser ? (
 					<Dropdown
 						arrowIcon={false}
