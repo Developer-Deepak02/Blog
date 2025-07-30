@@ -1,5 +1,10 @@
 import {
+	Avatar,
 	Button,
+	Dropdown,
+	DropdownDivider,
+	DropdownHeader,
+	DropdownItem,
 	Navbar,
 	NavbarCollapse,
 	NavbarLink,
@@ -10,9 +15,11 @@ import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
 	const path = useLocation().pathname;
+	const { currentUser } = useSelector((state) => state.user);
 
 	return (
 		<Navbar>
@@ -33,9 +40,39 @@ const Header = () => {
 				<Button className="hidden sm:inline" color="gray">
 					<FaMoon />
 				</Button>
-				<Link to="/signin">
-					<Button outline>Sign In</Button>
-				</Link>
+				{currentUser ? (
+					<Dropdown
+						arrowIcon={false}
+						inline={true}
+						label={
+							<Avatar
+								alt="User"
+								img={currentUser.profilePicture}
+								className="w-8 h-8"
+								rounded="full"
+							/>
+						}
+					>
+						<DropdownHeader>
+							<span className="block text-sm">
+								Username: {currentUser.user.username}
+							</span>
+							<span className="mt-2 block truncate text-sm font-medium">
+								Email: {currentUser.user.email}
+							</span>
+						</DropdownHeader>
+						<Link to="/dashboard?tab=profile">
+							<DropdownItem>Profile</DropdownItem>
+						</Link>
+						<DropdownDivider />
+						<DropdownItem>Sign Out</DropdownItem>
+					</Dropdown>
+				) : (
+					<Link to="/signin">
+						<Button outline>Sign In</Button>
+					</Link>
+				)}
+
 				<NavbarToggle />
 			</div>
 
