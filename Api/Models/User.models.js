@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
 		},
 		profilePicture: {
 			type: String,
-			default: "https://www.istockphoto.com/photos/user-avatar",
+			default: "/userPic.jpg",
 		},
 	},
 	{ timestamps: true }

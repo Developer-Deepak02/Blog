@@ -13,7 +13,7 @@ import { BsFacebook, BsTwitter, BsInstagram, BsGithub } from "react-icons/bs";
 
 const FooterCompoment = () => {
 	return (
-		<Footer container className="rounded-none">
+		<Footer container className="rounded-none border-t-2 border-gray-700">
 			<div className="w-full max-w-7xl mx-auto">
 				<div className="grid w-full justify-between sm:flex md:grid-cols-1 ">
 					{/* logo */}

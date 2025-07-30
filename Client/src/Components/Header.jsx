@@ -22,7 +22,7 @@ const Header = () => {
 	const { currentUser } = useSelector((state) => state.user);
 
 	return (
-		<Navbar>
+		<Navbar className="border-b-2 border-gray-700">
 			<Link
 				to="/"
 				className="text-xl font-semibold text-white self-center whitespace-nowrap text:sm sm:text-xl dark:text-white"
@@ -53,7 +53,7 @@ const Header = () => {
 						label={
 							<Avatar
 								alt="User"
-								img={currentUser.profilePicture}
+								img={currentUser.user.profilePicture}
 								className="w-8 h-8"
 								rounded="full"
 							/>
