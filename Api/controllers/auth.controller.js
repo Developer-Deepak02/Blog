@@ -1,9 +1,9 @@
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../Models/User.models.js");
-const errorHandler = require("../utils/error.js");
+import User from "../Models/User.models.js";
+import bcryptjs from "bcryptjs";
+import { errorHandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
 
-const SignUp = async (req, res, next) => {
+export const SignUp = async (req, res, next) => {
 	const { username, email, password } = req.body;
 
 	if (!username || !email || !password) {
@@ -26,7 +26,7 @@ const SignUp = async (req, res, next) => {
 	}
 };
 
-const SignIn = async (req, res, next) => {
+export const SignIn = async (req, res, next) => {
 	const { email, password } = req.body;
 
 	if (!email || !password) {
@@ -58,7 +58,7 @@ const SignIn = async (req, res, next) => {
 	}
 };
 
-const Google = async (req, res, next) => {
+export const Google = async (req, res, next) => {
 	const { name, email, googlePhotoUrl } = req.body;
 	try {
 		const user = await User.findOne({ email }); // ✅ typo fixed
@@ -96,4 +96,4 @@ const Google = async (req, res, next) => {
 	}
 };
 
-module.exports = { SignUp, SignIn, Google };
+

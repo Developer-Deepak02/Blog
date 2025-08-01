@@ -43,3 +43,6 @@ dist-ssr/
 
 # Optional: Ignore coverage reports if using testing
 coverage/
+
+# temporary files
+reminder.md

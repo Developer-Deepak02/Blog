@@ -5,19 +5,19 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const DashSidebar = () => {
-  	const location = useLocation();
-		const [tab, setTab] = useState("");
+	const location = useLocation();
+	const [tab, setTab] = useState("");
 
-		useEffect(() => {
-			const urlParams = new URLSearchParams(location.search);
-			const tabFromUrl = urlParams.get("tab");
-			if (tabFromUrl) {
-				setTab(tabFromUrl);
-			}
-		}, [location.search]);
+	useEffect(() => {
+		const urlParams = new URLSearchParams(location.search);
+		const tabFromUrl = urlParams.get("tab");
+		if (tabFromUrl) {
+			setTab(tabFromUrl);
+		}
+	}, [location.search]);
 
 	return (
-		<Sidebar aria-label="Sidebar"  className="w-full md:w-56">
+		<Sidebar aria-label="Sidebar" className="w-full md:w-56">
 			<SidebarItemGroup>
 				<Link to="/dashboard?tab=profile">
 					<SidebarItem
@@ -25,6 +25,7 @@ const DashSidebar = () => {
 						icon={HiUser}
 						label={"user"}
 						labelColor="dark"
+						as={"div"}
 					>
 						Profile
 					</SidebarItem>

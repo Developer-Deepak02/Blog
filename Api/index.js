@@ -1,8 +1,8 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const userRoutes = require("./Routes/user.route.js");
-const authRoutes = require("./Routes/auth.route.js");
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import userRoutes from "./Routes/user.route.js";
+import authRoutes from "./Routes/auth.route.js";
 
 // database connection and server setup
 dotenv.config();

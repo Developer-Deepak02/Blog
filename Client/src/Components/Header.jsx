@@ -54,8 +54,9 @@ const Header = () => {
 							<Avatar
 								alt="User"
 								img={currentUser.user.profilePicture}
-								className="w-8 h-8"
+								className=" cursor-pointer"
 								rounded="full"
+								
 							/>
 						}
 					>
