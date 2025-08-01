@@ -53,19 +53,18 @@ const Header = () => {
 						label={
 							<Avatar
 								alt="User"
-								img={currentUser.user.profilePicture}
+								img={currentUser?.profilePicture || "/userPic.jpg"}
 								className=" cursor-pointer"
 								rounded="full"
-								
 							/>
 						}
 					>
 						<DropdownHeader>
 							<span className="block text-sm">
-								Username: {currentUser.user.username}
+								Username: {currentUser?.username}
 							</span>
 							<span className="mt-2 block truncate text-sm font-medium">
-								Email: {currentUser.user.email}
+								Email: {currentUser?.email}
 							</span>
 						</DropdownHeader>
 						<Link to="/dashboard?tab=profile">
