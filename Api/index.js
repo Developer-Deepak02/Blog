@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./Routes/user.route.js";
 import authRoutes from "./Routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 // database connection and server setup
 dotenv.config();
@@ -15,6 +16,7 @@ mongoose
 		console.error("Error connecting to MongoDB:", err);
 	});
 const app = express();
+app.use(cookieParser());
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
