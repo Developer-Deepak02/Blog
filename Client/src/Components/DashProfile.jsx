@@ -16,12 +16,13 @@ import {
 	deleteUserStart,
 	deleteUserSuccess,
 	deleteUserFailure,
+	signoutSucess,
 } from "../redux/userSlice";
 import { set } from "mongoose";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const DashProfile = () => {
-	const { currentUser , error} = useSelector((state) => state.user);
+	const { currentUser, error } = useSelector((state) => state.user);
 	const [formData, setFormData] = useState({});
 	const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
 	const [updateUserError, setupdateUserError] = useState(null);
@@ -61,7 +62,7 @@ const DashProfile = () => {
 		}
 	};
 
-	// handle Delete USer
+	// handle Delete USer	-->	-->	-->
 	const handleDeleteUser = async () => {
 		try {
 			dispatch(deleteUserStart());
@@ -76,6 +77,23 @@ const DashProfile = () => {
 			}
 		} catch (error) {
 			dispatch.deleteUserFailure(error.message);
+		}
+	};
+
+	// handle signout	-->	-->	-->
+	const handleSignout = async () => {
+		try {
+			const res = await fetch("/api/user/signout", {
+				method: "POST",
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				dispatch(signoutSucess());
+			}
+		} catch (error) {
+			console.log(error.message);
 		}
 	};
 
@@ -120,7 +138,9 @@ const DashProfile = () => {
 						<span onClick={() => setShowModal(true)} className="cursor-pointer">
 							Delete account
 						</span>
-						<span className="cursor-pointer">Sign out</span>
+						<span onClick={handleSignout} className="cursor-pointer">
+							Sign out
+						</span>
 					</div>
 					{updateUserSuccess && (
 						<Alert className="mt-5" color="success">
