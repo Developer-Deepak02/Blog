@@ -1,16 +1,32 @@
-import { Alert, Button, TextInput } from "flowbite-react";
+import {
+	Alert,
+	Button,
+	Modal,
+	ModalBody,
+	ModalHeader,
+	TextInput,
+} from "flowbite-react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateStart, updateSuccess, updateFailure } from "../redux/userSlice";
+import {
+	updateStart,
+	updateSuccess,
+	updateFailure,
+	deleteUserStart,
+	deleteUserSuccess,
+	deleteUserFailure,
+} from "../redux/userSlice";
 import { set } from "mongoose";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const DashProfile = () => {
-	const { currentUser } = useSelector((state) => state.user);
+	const { currentUser , error} = useSelector((state) => state.user);
 	const [formData, setFormData] = useState({});
-	const dispatch = useDispatch();
 	const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
 	const [updateUserError, setupdateUserError] = useState(null);
+	const [showModal, setShowModal] = useState(false);
+	const dispatch = useDispatch();
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value });
 	};
@@ -44,6 +60,25 @@ const DashProfile = () => {
 			setupdateUserError(error.message);
 		}
 	};
+
+	// handle Delete USer
+	const handleDeleteUser = async () => {
+		try {
+			dispatch(deleteUserStart());
+			const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+				method: "DELETE",
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				dispatch(deleteUserFailure(data.message));
+			} else {
+				dispatch(deleteUserSuccess());
+			}
+		} catch (error) {
+			dispatch.deleteUserFailure(error.message);
+		}
+	};
+
 	return (
 		<div className="mx-w-lg mx-auto p-3 w-full">
 			<h1 className="my-7 text-center font-semibold text-3xl text-white">
@@ -78,9 +113,13 @@ const DashProfile = () => {
 						placeholder="Password"
 						onChange={handleChange}
 					/>
-					<Button type="submit">Update</Button>
+					<Button type="submit" className="cursor-pointer">
+						Update
+					</Button>
 					<div className="text-red-500 mt-4 flex justify-between">
-						<span className="cursor-pointer">Delete account</span>
+						<span onClick={() => setShowModal(true)} className="cursor-pointer">
+							Delete account
+						</span>
 						<span className="cursor-pointer">Sign out</span>
 					</div>
 					{updateUserSuccess && (
@@ -88,11 +127,39 @@ const DashProfile = () => {
 							{updateUserSuccess}
 						</Alert>
 					)}
-					{updateUserError && (
+					{error && (
 						<Alert className="mt-5" color="failure">
 							{updateUserError}
 						</Alert>
 					)}
+					<Modal
+						show={showModal}
+						onClose={() => setShowModal(false)}
+						popup
+						size="md"
+					>
+						<ModalHeader />
+						<ModalBody>
+							<div className="text-center">
+								<HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+								<h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+									Are you sure you want to delete your account?
+								</h3>
+								<div className="flex justify-center gap-6">
+									<Button
+										// color="failure"
+										className="bg-red-700 hover:bg-red-800 text-white"
+										onClick={handleDeleteUser}
+									>
+										Yes, delete account
+									</Button>
+									<Button color={"gray"} onClick={() => setShowModal(false)}>
+										No, cancel
+									</Button>
+								</div>
+							</div>
+						</ModalBody>
+					</Modal>
 				</div>
 			</form>
 		</div>
