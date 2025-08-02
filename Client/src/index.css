@@ -2,7 +2,7 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-
 html {
-background-color:  #111827;
+	background-color: #111827;
+	color: #fff;
 }

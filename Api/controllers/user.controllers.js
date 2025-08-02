@@ -36,23 +36,34 @@ export const updateUser = async (req, res, next) => {
 			);
 		}
 	}
-		try {
-			const updateUser = await User.findByIdAndUpdate(
-				req.params.userId,
-				{
-					$set: {
-						username: req.body.username,
-						email: req.body.email,
-						profilePicture: req.body.profilePicture,
-						password: req.body.password,
-					},
+	try {
+		const updateUser = await User.findByIdAndUpdate(
+			req.params.userId,
+			{
+				$set: {
+					username: req.body.username,
+					email: req.body.email,
+					profilePicture: req.body.profilePicture,
+					password: req.body.password,
 				},
-				{ new: true }
-			);
-			const { password: _, ...rest } = updateUser._doc;
-			return res.status(200).json(rest);
-		} catch (error) {
-			return next(error);
-		}
-	
+			},
+			{ new: true }
+		);
+		const { password: _, ...rest } = updateUser._doc;
+		return res.status(200).json(rest);
+	} catch (error) {
+		return next(error);
+	}
+};
+
+export const deleteUser = async (req, res, next) => {
+	if (req.user.id !== req.params.userId) {
+		return next(errorHandler(403, "You can delete only your account!"));
+	}
+	try {
+		await User.findByIdAndDelete(req.params.userId);
+		res.status(200).json("User has been deleted");
+	} catch (error) {
+		 next(error);
+	}
 };
