@@ -46,47 +46,51 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 px-4">
-			<div className="flex p-6 max-w-4xl w-full flex-col md:flex-row md:items-start gap-12">
+		<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-8">
+			<div className="flex flex-col md:flex-row max-w-5xl w-full gap-12 border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-2xl p-6 md:p-12 lg:p-16">
 				{/* Left Section */}
-				<div className="md:w-1/2 flex flex-col space-y-6">
+				<div className="md:w-1/2 flex flex-col justify-center gap-6">
 					<Link
 						to="/"
-						className="font-bold text-black dark:text-white text-4xl"
+						className="font-bold dark:text-white text-3xl text-gray-700"
 					>
-						<span className="px-2 py-1 border-2 border-white mr-2 rounded-lg text-2xl text-blue-400">
+						<span className="px-2 py-1 border-2 border-blue-500 mr-2 rounded-lg text-4xl text-blue-500 dark:text-blue-400">
 							Mind
 						</span>
 						Draft
 					</Link>
 
-					<p className="text-xl font-semibold text-white">
-						<span className="font-light text-gray-300">Turn</span> Thoughts into{" "}
-						<span className="text-blue-400 font-bold">Reality</span>
+					<p className="text-xl font-semibold text-gray-700 dark:text-gray-400">
+						Turn your Thoughts into
+						<span className="text-blue-500 font-bold border-b-2 border-blue-500 ml-2">
+							Reality
+						</span>
 					</p>
 
-					<p className="text-sm text-gray-400 leading-relaxed">
-						Draft your ideas, notes, or blogs — all in one place with MindDraft.
+					<p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+						Your mind is full of ideas — thoughts worth capturing, stories
+						waiting to be told. Let{" "}
+						<span className="text-blue-600 dark:text-blue-500 font-semibold italic ">
+							MindDraft
+						</span>{" "}
+						help you transform inspiration into real, meaningful content —
+						beautifully organized, effortlessly shared, and ready to make an
+						impact.
 					</p>
-
-					<div className="mt-6 bg-gray-800 p-6 rounded-full w-fit">
-						<img
-							src="/undraw_book-writer_ri5u.svg"
-							alt="idea"
-							className="w-40"
-						/>
-					</div>
 				</div>
 
 				{/* Right Section */}
 				<div className="md:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow space-y-6">
-					<h2 className="text-xl font-semibold text-white mb-2">
+					<h2 className="text-2xl font-semibold mb-2 text-gray-700 dark:text-gray-300">
 						Login to your account
 					</h2>
 
-					<form className="space-y-4 flex flex-col" onSubmit={handleSubmit}>
+					<form className="space-y-4" onSubmit={handleSubmit}>
 						<div>
-							<Label htmlFor="email" className="text-white">
+							<Label
+								htmlFor="email"
+								className="text-gray-600 dark:text-gray-300"
+							>
 								Email
 							</Label>
 							<TextInput
@@ -98,7 +102,10 @@ const SignIn = () => {
 						</div>
 
 						<div>
-							<Label htmlFor="password" className="text-white">
+							<Label
+								htmlFor="password"
+								className="text-gray-600 dark:text-gray-300"
+							>
 								Password
 							</Label>
 							<TextInput
@@ -112,7 +119,7 @@ const SignIn = () => {
 						<Button
 							type="submit"
 							disabled={loading}
-							className="w-full bg-blue-500 hover:bg-blue-600 text-white transition duration-200"
+							className="w-full bg-blue-500 hover:bg-blue-800 text-white transition duration-200 cursor-pointer"
 						>
 							{loading ? (
 								<>
@@ -123,18 +130,20 @@ const SignIn = () => {
 								"Sign In"
 							)}
 						</Button>
-						<OAuth/>
+
+						<OAuth />
 					</form>
 
-					<div className="flex gap-2 text-sm mt-4 text-gray-400">
-						<span>Don't Have an account?</span>
+					<div className="flex gap-2 text-sm mt-4 text-gray-500 dark:text-gray-400">
+						<span>Don't have an account?</span>
 						<Link
 							to="/signup"
-							className="text-blue-400 hover:text-blue-300 underline"
+							className="text-blue-500 hover:text-blue-700 hover:underline"
 						>
 							Sign Up
 						</Link>
 					</div>
+
 					{errorMessage && (
 						<Alert color="failure" className="mt-5">
 							{errorMessage}
@@ -143,6 +152,103 @@ const SignIn = () => {
 				</div>
 			</div>
 		</div>
+
+		// <div className="min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900 px-4">
+		// 	<div className="flex p-16 max-w-4xl w-full flex-col md:flex-row md:items-start gap-12 border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-2xl">
+		// 		{/* Left Section */}
+		// 		<div className="md:w-1/2 flex flex-col space-y-6 mt-8 sm:mt-0 gap-4">
+		// 			<Link
+		// 				to="/"
+		// 				className="font-bold text-black dark:text-white text-3xl"
+		// 			>
+		// 				<span className="px-2 py-1 border-2  border-blue-500 mr-2 rounded-lg text-4xl text-blue-500 dark:text-blue-400">
+		// 					Mind
+		// 				</span>
+		// 				Draft
+		// 			</Link>
+
+		// 			<p className="text-xl font-semibold mt-[-1rem]">
+		// 				Turn your Thoughts into
+		// 				<span className="text-blue-500 font-bold border-b-2 border-blue-500 ml-2">
+		// 					Reality
+		// 				</span>
+		// 			</p>
+
+		// 			<p className=" text-gray-600 leading-relaxed">
+		// 				Your mind is full of ideas — thoughts worth capturing, stories
+		// 				waiting to be told. Let{" "}
+		// 				<span className="text-blue-600 font-semibold italic border-b-2 border-blue-400">
+		// 					MindDraft
+		// 				</span>{" "}
+		// 				help you turn those sparks of inspiration into real, meaningful
+		// 				content — beautifully organized, effortlessly shared, and ready to
+		// 				make an impact.
+		// 			</p>
+		// 		</div>
+
+		// 		{/* Right Section */}
+		// 		<div className="md:w-1/2  dark:bg-gray-800 p-6 rounded-lg shadow space-y-6">
+		// 			<h2 className="text-2xl font-semibold mb-2">Login to your account</h2>
+
+		// 			<form className="space-y-4 flex flex-col" onSubmit={handleSubmit}>
+		// 				<div>
+		// 					<Label htmlFor="email" className="text-gray-600">
+		// 						Email
+		// 					</Label>
+		// 					<TextInput
+		// 						id="email"
+		// 						type="email"
+		// 						placeholder="Enter your email"
+		// 						onChange={handleChange}
+		// 					/>
+		// 				</div>
+
+		// 				<div>
+		// 					<Label htmlFor="password" className="text-gray-600">
+		// 						Password
+		// 					</Label>
+		// 					<TextInput
+		// 						id="password"
+		// 						type="password"
+		// 						placeholder="Enter your password"
+		// 						onChange={handleChange}
+		// 					/>
+		// 				</div>
+
+		// 				<Button
+		// 					type="submit"
+		// 					disabled={loading}
+		// 					className="w-full bg-blue-500 hover:bg-blue-800 text-white transition duration-200 cursor-pointer"
+		// 				>
+		// 					{loading ? (
+		// 						<>
+		// 							<Spinner size="sm" />
+		// 							<span className="pl-3">Loading</span>
+		// 						</>
+		// 					) : (
+		// 						"Sign In"
+		// 					)}
+		// 				</Button>
+		// 				<OAuth />
+		// 			</form>
+
+		// 			<div className="flex gap-2 text-sm mt-4 text-gray-500">
+		// 				<span>Don't Have an account?</span>
+		// 				<Link
+		// 					to="/signup"
+		// 					className="text-blue-500 hover:text-blue-700 hover:underline"
+		// 				>
+		// 					Sign Up
+		// 				</Link>
+		// 			</div>
+		// 			{errorMessage && (
+		// 				<Alert color="failure" className="mt-5">
+		// 					{errorMessage}
+		// 				</Alert>
+		// 			)}
+		// 		</div>
+		// 	</div>
+		// </div>
 	);
 };
 

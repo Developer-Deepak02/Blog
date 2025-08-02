@@ -44,76 +44,79 @@ const SignUp = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 px-4">
-			<div className="flex p-6 max-w-4xl w-full flex-col md:flex-row md:items-start gap-12">
+		<div className="min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900 px-4">
+			<div className="flex p-6  sm:p-8 md:p-12 lg:p-16 max-w-4xl w-full flex-col md:flex-row md:items-center gap-12 border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-2xl mt-8 sm:mt-0 mb-8 sm:mb-0">
 				{/* Left Section */}
-				<div className="md:w-1/2 flex flex-col space-y-6">
+				<div className="md:w-1/2 flex flex-col justify-center gap-6 text-center md:text-left items-center md:items-start">
 					<Link
 						to="/"
-						className="font-bold text-black dark:text-white text-4xl"
+						className="font-bold text-gray-700 dark:text-white text-3xl "
 					>
-						<span className="px-2 py-1 border-2 border-white mr-2 rounded-lg text-2xl text-blue-400">
+						<span className="px-2 py-1 border-2 border-blue-500 mr-2 rounded-lg text-4xl text-blue-500 dark:text-blue-400">
 							Mind
 						</span>
 						Draft
 					</Link>
 
-					<p className="text-xl font-semibold text-white">
-						<span className="font-light text-gray-300">Turn</span> Thoughts into{" "}
-						<span className="text-blue-400 font-bold">Reality</span>
+					<p className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+						Turn your Thoughts into
+						<span className="text-blue-500 font-bold border-b-2 border-blue-500 ml-2">
+							Reality
+						</span>
 					</p>
 
-					<p className="text-sm text-gray-400 leading-relaxed">
-						Draft your ideas, notes, or blogs — all in one place with MindDraft.
+					<p className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-md text-justify sm:text-left">
+						Your mind is full of ideas — thoughts worth capturing, stories
+						waiting to be told. Let{" "}
+						<span className="text-blue-600 dark:text-blue-500 font-semibold italic">
+							MindDraft
+						</span>{" "}
+						help you turn those sparks of inspiration into real, meaningful
+						content — beautifully organized, effortlessly shared, and ready to
+						make an impact.
 					</p>
-
-					<div className="mt-6 bg-gray-800 p-6 rounded-full w-fit">
-						<img
-							src="/undraw_book-writer_ri5u.svg"
-							alt="idea"
-							className="w-40"
-						/>
-					</div>
 				</div>
 
 				{/* Right Section */}
-				<div className="md:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow space-y-6">
-					<h2 className="text-xl font-semibold text-white mb-2">
+				<div className="md:w-1/2 dark:bg-gray-800 p-6 rounded-lg shadow space-y-6">
+					<h2 className="text-2xl font-semibold dark:text-gray-300 text-gray-700">
 						Create your account
 					</h2>
-
 					<form className="space-y-4 flex flex-col" onSubmit={handleSubmit}>
 						<div>
-							<Label htmlFor="username" className="text-white">
+							<Label htmlFor="username" className="text-gray-600">
 								Username
 							</Label>
 							<TextInput
 								id="username"
 								type="text"
+								required
 								placeholder="Enter your username"
 								onChange={handleChange}
 							/>
 						</div>
 
 						<div>
-							<Label htmlFor="email" className="text-white">
+							<Label htmlFor="email" className="text-gray-600">
 								Email
 							</Label>
 							<TextInput
 								id="email"
 								type="email"
+								required
 								placeholder="Enter your email"
 								onChange={handleChange}
 							/>
 						</div>
 
 						<div>
-							<Label htmlFor="password" className="text-white">
+							<Label htmlFor="password" className="text-gray-600">
 								Password
 							</Label>
 							<TextInput
 								id="password"
 								type="password"
+								required
 								placeholder="Enter your password"
 								onChange={handleChange}
 							/>
@@ -122,7 +125,7 @@ const SignUp = () => {
 						<Button
 							type="submit"
 							disabled={loading}
-							className="w-full bg-blue-500 hover:bg-blue-600 text-white transition duration-200"
+							className="w-full bg-blue-500 hover:bg-blue-800 text-white transition duration-200 cursor-pointer"
 						>
 							{loading ? (
 								<>
@@ -133,18 +136,20 @@ const SignUp = () => {
 								"Sign Up"
 							)}
 						</Button>
-						<OAuth/>
+
+						<OAuth />
 					</form>
 
-					<div className="flex gap-2 text-sm mt-4 text-gray-400">
+					<div className="flex gap-2 text-sm mt-4 text-gray-500 dark:text-gray-400">
 						<span>Have an account?</span>
 						<Link
 							to="/signin"
-							className="text-blue-400 hover:text-blue-300 underline"
+							className="text-blue-500 hover:text-blue-700 hover:underline"
 						>
 							Sign In
 						</Link>
 					</div>
+
 					{errorMessage && (
 						<Alert color="failure" className="mt-5">
 							{errorMessage}

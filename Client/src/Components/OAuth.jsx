@@ -41,7 +41,7 @@ const OAuth = () => {
 	return (
 		<Button
 			type="button"
-			className="w-full flex items-center justify-center gap-2"
+			className="w-full flex items-center justify-center gap-2 cursor-pointer"
 			outline
 			onClick={handleGoogleClick}
 		>

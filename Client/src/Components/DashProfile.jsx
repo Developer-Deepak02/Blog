@@ -41,7 +41,7 @@ const DashProfile = () => {
 		}
 		try {
 			dispatch(updateStart());
-			const res = await fetch(`/api/users/update/${currentUser._id}`, {
+			const res = await fetch(`/api/user/update/${currentUser._id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -98,8 +98,8 @@ const DashProfile = () => {
 	};
 
 	return (
-		<div className="mx-w-lg mx-auto p-3 w-full">
-			<h1 className="my-7 text-center font-semibold text-3xl text-white">
+		<div className="mx-w-lg mx-auto p-3 bg-gray-50 dark:bg-gray-900 lex justify-center items-center w-full">
+			<h1 className="my-7 text-center font-semibold text-3xl text-gray-700 dark:text-gray-300">
 				Profile
 			</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -110,7 +110,7 @@ const DashProfile = () => {
 						className="rounded-full w-full h-full border-8 border-gray-400 object-cover"
 					/>
 				</div>
-				<div className=" flex flex-col gap-4 mx-auto lg:w-1/2 md:w-full sm:w-full">
+				<div className=" flex flex-col gap-4 mx-auto lg:w-1/2 md:w-2/3 sm:w-2/3">
 					<TextInput
 						type="text"
 						id="username"
