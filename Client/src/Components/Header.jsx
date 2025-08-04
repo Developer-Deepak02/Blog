@@ -42,7 +42,7 @@ const Header = () => {
 
 	return (
 		<Navbar
-			className="border-b border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+			className="border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
 			fluid
 			rounded
 		>
@@ -127,78 +127,7 @@ const Header = () => {
 				</NavbarLink>
 			</NavbarCollapse>
 		</Navbar>
-		// <Navbar className="border-b-1 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 ">
-		// 	<Link
-		// 		to="/"
-		// 		className="text-xl font-bold  self-center whitespace-nowrap text:sm sm:text-xl dark:text-white"
-		// 	>
-		// 		<span className="px-2 py-1 border-2 border-blue-500 mr-2 rounded-lg text-2xl text-blue-500 dark:text-blue-400">
-		// 			Mind
-		// 		</span>
-		// 		Draft
-		// 	</Link>
-
-		// 	<div className="flex gap-8 md:order-2 mr-3">
-		// 		<form>
-		// 			<TextInput
-		// 				type="text"
-		// 				placeholder="Search..."
-		// 				rightIcon={AiOutlineSearch}
-		// 				className="hidden lg:inline"
-		// 				onChange={(e) => setSearchTerm(e.target.value)}
-		// 			/>
-		// 		</form>
-		// 		<Button outline className="cursor-pointer">
-		// 			<FaMoon />
-		// 		</Button>
-		// 		{currentUser ? (
-		// 			<Dropdown
-		// 				arrowIcon={false}
-		// 				inline={true}
-		// 				label={
-		// 					<Avatar
-		// 						alt="User"
-		// 						img={currentUser?.profilePicture || "/userPic.jpg"}
-		// 						className=" cursor-pointer"
-		// 						rounded="full"
-		// 					/>
-		// 				}
-		// 			>
-		// 				<DropdownHeader>
-		// 					<span className="block text-sm">
-		// 						Username: {currentUser?.username}
-		// 					</span>
-		// 					<span className="mt-2 block truncate text-sm font-medium">
-		// 						Email: {currentUser?.email}
-		// 					</span>
-		// 				</DropdownHeader>
-		// 				<Link to="/dashboard?tab=profile">
-		// 					<DropdownItem>Profile</DropdownItem>
-		// 				</Link>
-		// 				<DropdownDivider />
-		// 				<DropdownItem onClick={handleSignout}>Sign Out</DropdownItem>
-		// 			</Dropdown>
-		// 		) : (
-		// 			<Link to="/signin">
-		// 				<Button outline>Sign In</Button>
-		// 			</Link>
-		// 		)}
-
-		// 		<NavbarToggle />
-		// 	</div>
-
-		// 	<NavbarCollapse>
-		// 		<NavbarLink as={Link} to="/" active={path === "/"}>
-		// 			Home
-		// 		</NavbarLink>
-		// 		<NavbarLink as={Link} to="/about" active={path === "/about"}>
-		// 			About
-		// 		</NavbarLink>
-		// 		<NavbarLink as={Link} to="/projects" active={path === "/projects"}>
-		// 			Projects
-		// 		</NavbarLink>
-		// 	</NavbarCollapse>
-		// </Navbar>
+		
 	);
 };
 

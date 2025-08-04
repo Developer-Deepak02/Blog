@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Sidebar, SidebarItem, SidebarItemGroup } from "flowbite-react";
-import { HiUser, HiArrowSmRight, HiMenu, HiX } from "react-icons/hi";
+import {
+	HiUser,
+	HiArrowSmRight,
+	HiMenu,
+	HiX,
+	HiDocumentText,
+} from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signoutSucess } from "../redux/userSlice";
+import { useSelector } from "react-redux";
 
 const DashSidebar = () => {
 	const location = useLocation();
@@ -11,6 +18,7 @@ const DashSidebar = () => {
 	const [tab, setTab] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	const sidebarRef = useRef();
+	const { currentUser } = useSelector((state) => state.user);
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(location.search);
@@ -59,12 +67,12 @@ const DashSidebar = () => {
 	};
 
 	return (
-		<div >
+		<div className="bg-gray-100 dark:bg-gray-900">
 			{/* Hamburger Button */}
 			{!isOpen && (
 				<button
 					onClick={() => setIsOpen(true)}
-					className="md:hidden m-2  p-2 dark:bg-transparent text-gray-800 dark:text-white rounded-md shadow-md absolute z-50"
+					className="md:hidden m-2  p-2 dark:bg-transparent text-gray-800 dark:text-white rounded-md shadow-md absolute z-50 "
 				>
 					<HiMenu className="text-xl" />
 				</button>
@@ -76,7 +84,7 @@ const DashSidebar = () => {
 			{/* Sidebar */}
 			<div
 				ref={sidebarRef}
-				className={`fixed top-[4rem] left-0 z-50 h-[calc(100vh-4rem)] md:static md:h-auto 
+				className={`fixed top-[4rem] left-0 z-50 h-[calc(100vh-4rem)] md:static md:h-auto bg-gray-100 dark:bg-gray-900
 				${isOpen ? "translate-x-0" : "-translate-x-full"}
 					w-64 h-full
 					md:translate-x-0 md:relative md:h-screen md:block
@@ -84,7 +92,7 @@ const DashSidebar = () => {
 			>
 				<Sidebar
 					aria-label="Sidebar"
-					className="w-64 h-full border-r-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 relative"
+					className="w-64 h-full border-r-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 relative"
 				>
 					{/* Close Button */}
 					{isOpen && (
@@ -96,18 +104,30 @@ const DashSidebar = () => {
 						</button>
 					)}
 
-					<SidebarItemGroup className="mt-8 md:mt-0">
+					<SidebarItemGroup className="mt-8 md:mt-0 flex flex-col gap-1 ">
 						<Link to="/dashboard?tab=profile">
 							<SidebarItem
 								active={tab === "profile"}
 								icon={HiUser}
-								label={"user"}
+								label={currentUser.isAdmin ? "Admin" : "User"}
 								labelColor="dark"
 								as="div"
 							>
 								Profile
 							</SidebarItem>
 						</Link>
+						{currentUser.isAdmin && (
+							<Link to="/dashboard?tab=posts">
+								<SidebarItem
+									active={tab === "posts"}
+									icon={HiDocumentText}
+									as="div"
+								>
+									Posts
+								</SidebarItem>
+							</Link>
+						)}
+
 						<SidebarItem
 							onClick={handleSignout}
 							icon={HiArrowSmRight}

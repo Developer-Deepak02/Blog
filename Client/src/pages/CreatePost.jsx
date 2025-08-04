@@ -34,7 +34,7 @@ const createPost = () => {
 		}
 	};
 	return (
-		<div className="p-3 max-w-3xl mx-auto min-h-screen ">
+		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-800 dark:text-white">
 			<h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
 			<form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-4 sm:flex-row items-center ">
@@ -73,7 +73,7 @@ const createPost = () => {
 				<ReactQuill
 					theme="snow"
 					placeholder="Write your content here."
-					className="h-75 mb-12"
+					className="h-75 mb-12 placeholder-white"
 					required
 					onChange={(e) => setFormData({ ...formData, content: e })}
 				/>
@@ -83,9 +83,11 @@ const createPost = () => {
 				>
 					Publish
 				</Button>
-				{
-					publisherror && <Alert color="failure" className="mt-4">{publisherror}</Alert>
-				}
+				{publisherror && (
+					<Alert color="failure" className="mt-4">
+						{publisherror}
+					</Alert>
+				)}
 			</form>
 		</div>
 	);

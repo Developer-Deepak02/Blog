@@ -15,7 +15,7 @@ const FooterCompoment = () => {
 	return (
 		<Footer
 			container
-			className="w-full rounded-none border-t-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+			className="w-full rounded-none border-t-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
 		>
 			<div className="w-full px-4">
 				<div className="grid md:grid-cols-2 gap-10">
