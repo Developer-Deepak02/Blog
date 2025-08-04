@@ -20,9 +20,10 @@ import {
 } from "../redux/userSlice";
 import { set } from "mongoose";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
-	const { currentUser, error } = useSelector((state) => state.user);
+	const { currentUser, error, loading } = useSelector((state) => state.user);
 	const [formData, setFormData] = useState({});
 	const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
 	const [updateUserError, setupdateUserError] = useState(null);
@@ -131,9 +132,17 @@ const DashProfile = () => {
 						placeholder="Password"
 						onChange={handleChange}
 					/>
-					<Button type="submit" className="cursor-pointer">
-						Update
+					<Button type="submit" className="cursor-pointer" disabled={loading}>
+						{loading ? "Updating..." : "Update"}
 					</Button>
+
+					{currentUser.isAdmin && (
+						<Link to={"/create-post"}>
+							<Button type="button" outline className="cursor-pointer w-full">
+								Create a post
+							</Button>
+						</Link>
+					)}
 					<div className="text-red-500 mt-4 flex justify-between">
 						<span onClick={() => setShowModal(true)} className="cursor-pointer">
 							Delete account

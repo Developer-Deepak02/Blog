@@ -2,6 +2,14 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-html {
+/* html {
 	background-color: #FAF9EE;
+} */
+
+body{
+	height: 100vh;
+}
+
+.ql-editor{
+	font-size: 1rem;
 }

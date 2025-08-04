@@ -3,6 +3,8 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
+
+// Sign Up
 export const SignUp = async (req, res, next) => {
 	const { username, email, password } = req.body;
 
@@ -26,6 +28,8 @@ export const SignUp = async (req, res, next) => {
 	}
 };
 
+
+// Sign In
 export const SignIn = async (req, res, next) => {
 	const { email, password } = req.body;
 
@@ -39,13 +43,13 @@ export const SignIn = async (req, res, next) => {
 			return next(errorHandler(404, "User not found"));
 		}
 
-		const validPassword = bcryptjs.compareSync(password, validUser.password); // Fix: Compare password with hashed password
+		const validPassword = bcryptjs.compareSync(password, validUser.password); 
 		if (!validPassword) {
 			return next(errorHandler(400, "Invalid password"));
 		}
 
-		const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-		const { password: _, ...userDetails } = validUser._doc; // Exclude password from user details
+		const token = jwt.sign({ id: validUser._id , isAdmin : validUser.isAdmin}, process.env.JWT_SECRET);
+		const { password: _, ...userDetails } = validUser._doc;
 
 		res
 			.status(200)
@@ -58,12 +62,13 @@ export const SignIn = async (req, res, next) => {
 	}
 };
 
+// Google authantication
 export const Google = async (req, res, next) => {
 	const { name, email, googlePhotoUrl } = req.body;
 	try {
-		const user = await User.findOne({ email }); // ✅ typo fixed
+		const user = await User.findOne({ email }); 
 		if (user) {
-			const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+			const token = jwt.sign({ id: user._id , isAdmin : user.isAdmin }, process.env.JWT_SECRET);
 			const { password: _, ...rest } = user._doc;
 			return res
 				.status(200)
@@ -79,16 +84,16 @@ export const Google = async (req, res, next) => {
 					name.toLowerCase().split(" ").join("") +
 					Math.random().toString(9).slice(-4),
 				email,
-				password: hashedPassword, // ✅ don't leave null
+				password: hashedPassword, 
 				profilePicture: googlePhotoUrl,
 			});
 			await newUser.save();
-			const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+			const token = jwt.sign({ id: newUser._id , isAdmin : newUser.isAdmin }, process.env.JWT_SECRET);
 			const { password: _, ...rest } = newUser._doc;
 			return res
 				.status(201)
 				.cookie("access_token", token, { httpOnly: true })
-				.json({ user: rest }); // ✅ consistent output
+				.json({ user: rest }); 
 		}
 	} catch (error) {
 		console.error("Google auth error:", error);

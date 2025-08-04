@@ -15,9 +15,10 @@
     "@tailwindcss/vite": "^4.1.11",
     "firebase": "^12.0.0",
     "flowbite-react": "^0.11.9",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.7.0",
     "redux-persist": "^6.0.0"
