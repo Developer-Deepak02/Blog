@@ -64,38 +64,38 @@ const DashPosts = () => {
 
 	// delete post
 
-	 const handleDeletePost = async () => {
-			setShowModal(false);
-			try {
-				const res = await fetch(
-					`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
-					{
-						method: "DELETE",
-					}
-				);
-				const data = await res.json();
-				if (!res.ok) {
-					console.log(data.message);
-				} else {
-					setUserPosts((prev) =>
-						prev.filter((post) => post._id !== postIdToDelete)
-					);
+	const handleDeletePost = async () => {
+		setShowModal(false);
+		try {
+			const res = await fetch(
+				`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+				{
+					method: "DELETE",
 				}
-			} catch (error) {
-				console.log(error.message);
+			);
+			const data = await res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				setUserPosts((prev) =>
+					prev.filter((post) => post._id !== postIdToDelete)
+				);
 			}
-		};
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
 
 	return (
-		<div className="mx-auto mt-9 p-3">
+		<div className="mx-auto mt-9 lg:mt-1  p-3">
 			{currentUser.isAdmin && userPosts.length > 0 ? (
 				<>
 					{/* Horizontal & vertical scroll container */}
-					<div className="relative max-w-full overflow-x-auto max-h-[60vh] lg:max-h-[80vh] rounded-md border border-gray-200 dark:border-gray-700">
-						<div className="w-[24rem] md:w-[30rem] lg:w-[80rem] mx-auto overflow-y-auto  ">
+					<div className="relative max-w-full overflow-x-auto max-h-[80vh] md:h-[78vh] lg:max-h-[90vh] rounded-md border border-red-500 dark:border-red-400">
+						<div className="w-[85vw] md:w-[68vw] lg:w-[74vw] mx-auto overflow-y-auto ">
 							<Table>
 								<TableHead className="sticky top-0 z-20 bg-white dark:bg-gray-900">
-									<TableHeadCell className="sticky top-0 bg-white dark:bg-gray-900 z-20">
+									<TableHeadCell className="sticky top-0 bg-white dark:bg-gray-900 z-20 ">
 										Date Updated
 									</TableHeadCell>
 									<TableHeadCell className="sticky top-0 bg-white dark:bg-gray-900 z-20">
@@ -133,7 +133,7 @@ const DashPosts = () => {
 													/>
 												</Link>
 											</TableCell>
-											<TableCell className="max-w-[300px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[400px]">
+											<TableCell className="max-w-[18.75rem] sm:max-w-[10rem] md:max-w-[12.5rem] lg:max-w-[15rem]">
 												<Link
 													className="block truncate whitespace-nowrap font-medium text-gray-900 dark:text-white"
 													to={`/post/${post.slug}`}
@@ -156,7 +156,7 @@ const DashPosts = () => {
 											<TableCell>
 												<Link
 													className="text-teal-500 hover:underline"
-													to={`/post/${post._id}`}
+													to={`/update-post/${post._id}`}
 												>
 													Edit
 												</Link>

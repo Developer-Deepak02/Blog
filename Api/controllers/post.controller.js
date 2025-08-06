@@ -1,7 +1,7 @@
 // Import custom error handler and Post model
-import { errorHandler} from "../utils/error.js";
+import { errorHandler } from "../utils/error.js";
 import Post from "../Models/post.models.js";
-import { verifyToken } from '../utils/verifyUser.js';
+import { verifyToken } from "../utils/verifyUser.js";
 
 // creating post
 /**
@@ -113,6 +113,30 @@ export const deletepost = async (req, res, next) => {
 		res.status(200).json("Post has been deleted");
 	} catch (error) {
 		// Handle any database/server errors
+		next(error);
+	}
+};
+
+// upating post
+
+export const updatepost = async (req, res, next) => {
+	if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+		return next(errorHandler(403, "You are not allowed to update this post"));
+	}
+	try {
+		const UpdatePost = await Post.findByIdAndUpdate(
+			req.params.postId,
+			{
+				$set: {
+					title: req.body.title,
+					content: req.body.content,
+					category: req.body.category,
+					image: req.body.image,
+				},
+			},
+			{ new: true })
+			res.status(200).json(UpdatePost);
+	} catch (error) {
 		next(error);
 	}
 };
