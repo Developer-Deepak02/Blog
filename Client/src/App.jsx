@@ -10,9 +10,9 @@ import { ThemeModeScript } from "flowbite-react";
 import FooterCompoment from "./Components/Footer";
 import PrivateRoute from "./Components/PrivateRoute";
 import AdminPrivateRoute from "./Components/AdminPrivateRoute";
-import CreatePost from './pages/CreatePost';
+import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
-
+import PostPage from "./pages/PostPage";
 
 const App = () => {
 	return (
@@ -21,14 +21,20 @@ const App = () => {
 			<BrowserRouter>
 				<Header />
 				<Routes>
+					{/* public routes */}
 					<Route path="/" element={<Home />} />
 					<Route path="/home" element={<Home />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/signin" element={<SignIn />} />
 					<Route path="/signup" element={<SignUp />} />
+					<Route path="/post/:postSlug" element={<PostPage />} />
+
+					{/* private route */}
 					<Route element={<PrivateRoute />}>
 						<Route path="/dashboard" element={<Dashbord />} />
 					</Route>
+
+					{/* admin route */}
 					<Route element={<AdminPrivateRoute />}>
 						<Route path="/create-post" element={<CreatePost />} />
 						<Route path="/update-post/:postId" element={<UpdatePost />} />
