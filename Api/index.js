@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./Routes/user.route.js";
 import authRoutes from "./Routes/auth.route.js";
 import cookieParser from "cookie-parser";
+import commentRoutes from "./Routes/comment.route.js";
 import postRoutes from "./Routes/post.route.js";
 
 // database connection and server setup
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/comment", commentRoutes);
 
 // middleware for handling errors
 app.use((err, req, res, next) => {

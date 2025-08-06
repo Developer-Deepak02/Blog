@@ -13,12 +13,14 @@ import AdminPrivateRoute from "./Components/AdminPrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
+import ScrollToTop from "./Components/ScrollToTop";
 
 const App = () => {
 	return (
 		<>
 			<ThemeModeScript />
 			<BrowserRouter>
+				<ScrollToTop />
 				<Header />
 				<Routes>
 					{/* public routes */}
