@@ -24,21 +24,21 @@ const Header = () => {
 	const dispatch = useDispatch();
 
 	// handle signout	-->	-->	-->
-		const handleSignout = async () => {
-			try {
-				const res = await fetch("/api/user/signout", {
-					method: "POST",
-				});
-				const data = await res.json();
-				if (!res.ok) {
-					console.log(data.message);
-				} else {
-					dispatch(signoutSucess());
-				}
-			} catch (error) {
-				console.log(error.message);
+	const handleSignout = async () => {
+		try {
+			const res = await fetch("/api/user/signout", {
+				method: "POST",
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				dispatch(signoutSucess());
 			}
-		};
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
 
 	return (
 		<Navbar
@@ -68,40 +68,43 @@ const Header = () => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 				</form>
-
 				{/* Theme toggle button */}
 				<Button outline size="sm" className="rounded-md cursor-pointer">
 					<FaMoon />
 				</Button>
-
 				{/* Auth dropdown / Sign in */}
 				{currentUser ? (
-					<Dropdown
-						arrowIcon={false}
-						inline
-						label={
-							<Avatar
-								alt="User Avatar"
-								img={currentUser?.profilePicture || "/userPic.jpg"}
-								className="cursor-pointer"
-								rounded
-							/>
-						}
-					>
-						<DropdownHeader>
-							<span className="block text-sm font-medium">
-								username : @{currentUser?.username}
-							</span>
-							<span className="block text-sm truncate">
-								Email : {currentUser?.email}
-							</span>
-						</DropdownHeader>
-						<Link to="/dashboard?tab=profile">
-							<DropdownItem>Profile</DropdownItem>
-						</Link>
-						<DropdownDivider />
-						<DropdownItem onClick={handleSignout}>Sign Out</DropdownItem>
-					</Dropdown>
+					<div className="relative z-50">
+						<Dropdown
+							arrowIcon={false}
+							inline
+							label={
+								<Avatar
+									alt="User Avatar"
+									img={currentUser?.profilePicture || "/userPic.jpg"}
+									className="cursor-pointer"
+									rounded
+								/>
+							}
+						>
+							<DropdownHeader>
+								<span className="block text-sm font-medium">
+									username : @{currentUser?.username}
+								</span>
+								<span className="block text-sm truncate">
+									Email : {currentUser?.email}
+								</span>
+							</DropdownHeader>
+
+							<Link to="/dashboard?tab=profile">
+								<DropdownItem>Profile</DropdownItem>
+							</Link>
+
+							<DropdownDivider />
+
+							<DropdownItem onClick={handleSignout}>Sign Out</DropdownItem>
+						</Dropdown>
+					</div>
 				) : (
 					<Link to="/signin">
 						<Button outline size="sm" className="cursor-pointer">
@@ -127,7 +130,6 @@ const Header = () => {
 				</NavbarLink>
 			</NavbarCollapse>
 		</Navbar>
-		
 	);
 };
 

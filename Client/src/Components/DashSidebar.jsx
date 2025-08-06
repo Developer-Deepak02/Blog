@@ -84,7 +84,7 @@ const DashSidebar = () => {
 			{/* Sidebar */}
 			<div
 				ref={sidebarRef}
-				className={`fixed top-[4rem] left-0 z-50 h-[calc(100vh-4rem)] md:static md:h-auto bg-gray-100 dark:bg-gray-900
+				className={`fixed top-[4rem] left-0 z-50 h-auto md:static md:h-auto bg-gray-100 dark:bg-gray-900
 				${isOpen ? "translate-x-0" : "-translate-x-full"}
 					w-64 h-full
 					md:translate-x-0 md:relative md:h-screen md:block
@@ -92,7 +92,7 @@ const DashSidebar = () => {
 			>
 				<Sidebar
 					aria-label="Sidebar"
-					className="w-64 h-full border-r-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 relative"
+					className="w-64 min-h-full border-r-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 relative"
 				>
 					{/* Close Button */}
 					{isOpen && (

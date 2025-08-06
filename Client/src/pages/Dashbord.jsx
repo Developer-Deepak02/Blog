@@ -19,14 +19,14 @@ const Dashbord = () => {
 
 	return (
 		<div className="min-h-screen flex felx-col md:flex-row bg-gray-50 dark:bg-gray-900">
-			<div className="md:w-56">
+			<div className="md:w-56 min-h-screen">
 				{/*sidebar  */}
 				<DashSidebar />
 			</div>
 			{/* profile.... */}
 			{tab === "profile" && <DashProfile />}
 			{/* posts */}
-			{tab === "posts" && <DashPosts/>}
+			{tab === "posts" && <DashPosts />}
 		</div>
 	);
 };
