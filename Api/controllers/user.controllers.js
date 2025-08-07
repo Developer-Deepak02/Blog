@@ -2,12 +2,15 @@ import bcrypt from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import User from "../Models/User.models.js";
 
+// test route
 export const test = (req, res) => {
 	res.json({
 		message: "User route is working",
 	});
 };
 
+
+// update user 
 export const updateUser = async (req, res, next) => {
 	if (req.user.id !== req.params.userId) {
 		return next(errorHandler(403, "You can update only your account!"));
@@ -55,7 +58,7 @@ export const updateUser = async (req, res, next) => {
 		return next(error);
 	}
 };
-
+// delete user
 export const deleteUser = async (req, res, next) => {
 	if (req.user.id !== req.params.userId) {
 		return next(errorHandler(403, "You can delete only your account!"));
@@ -68,6 +71,7 @@ export const deleteUser = async (req, res, next) => {
 	}
 };
 
+// signout 
 export const signout = (req, res, next) => {
 	try {
 		res
@@ -79,6 +83,8 @@ export const signout = (req, res, next) => {
 	}
 };
 
+
+// get users 
 export const getUser = async (req, res, next) => {
 	try {
 		const user = await User.findById(req.params.userId);
@@ -89,3 +95,5 @@ export const getUser = async (req, res, next) => {
 		next(error);
 	}
 };
+
+

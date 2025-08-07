@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
 import { useState, useEffect } from "react";
 import Comment from "./Comment.jsx";
@@ -11,7 +11,7 @@ const CommentSection = ({ postId: propPostId }) => {
 	const [comment, setComment] = useState("");
 	const [commentError, setCommentError] = useState(null);
 	const [comments, setComments] = useState([]);
-	console.log(comments);
+	const navigate = useNavigate();
 
 	const postId = propPostId || paramPostId; // Use prop if passed, else fallback to URL param
 
@@ -58,6 +58,35 @@ const CommentSection = ({ postId: propPostId }) => {
 
 		getComments();
 	}, [postId]);
+
+	const handleLike = async (commentId) => {
+		try {
+			if (!currentUser) {
+				return navigate("/signin");
+			}
+			const res = await fetch(`/api/comment/likeComment/${commentId}`, {
+				method: "PUT",
+			});
+
+			if (res.ok) {
+				const data = await res.json();
+
+				setComments((prevComments) =>
+					prevComments.map((comment) =>
+						comment._id === commentId
+							? {
+									...comment,
+									likes: data.likes,
+									numberOfLikes: data.likes.length,
+							  }
+							: comment
+					)
+				);
+			}
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
 
 	return (
 		<div className="max-w-2xl mx-auto w-full p-3">
@@ -123,7 +152,7 @@ const CommentSection = ({ postId: propPostId }) => {
 						</div>
 					</div>
 					{comments.map((comment) => (
-						<Comment key={comment._id} comment={comment} />
+						<Comment key={comment._id} comment={comment} onLike={handleLike} />
 					))}
 				</>
 			)}

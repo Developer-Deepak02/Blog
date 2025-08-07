@@ -30,3 +30,31 @@ export const getPostComments = async (req, res, next) => {
 		next(error);
 	}
 };
+
+//  like commnet 
+
+export const likeComment = async (req, res, next) => {
+	try {
+		const commentId = req.params.commentId;
+		const comment = await Comment.findById(commentId);
+		if (!comment) {
+			return next(errorHandler(404, "Comment not found"));
+		}
+		const userIndex = comment.likes.findIndex((id) => id === req.user.id);
+		if (userIndex === -1) {
+			// User has not liked the comment
+			comment.numberOfLikes += 1;
+			comment.likes.push(req.user.id);
+		} else {
+			// User has already liked the comment
+			comment.numberOfLikes -= 1;
+			comment.likes.splice(userIndex, 1);
+		}
+		// Save the updated comment
+		await comment.save();
+		res.status(200).json(comment);
+	} catch (error) {
+		// handle errors
+		next(error);
+	}
+};
