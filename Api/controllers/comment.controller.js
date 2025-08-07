@@ -20,3 +20,13 @@ export const createCommnet = async (req, res, next) => {
 		next(error);
 	}
 };
+
+export const getPostComments = async (req, res, next) => {
+	try {
+		const postId = req.params.postId;
+		const comments = await Comment.find({ postId }).sort({ createdAt: -1 });
+		res.status(200).json(comments);
+	} catch (error) {
+		next(error);
+	}
+};

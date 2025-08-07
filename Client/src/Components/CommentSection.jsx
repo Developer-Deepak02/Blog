@@ -2,14 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
-import { useState } from "react";
-import { set } from "mongoose";
+import { useState, useEffect } from "react";
+import Comment from "./Comment.jsx";
 
 const CommentSection = ({ postId: propPostId }) => {
 	const { currentUser } = useSelector((state) => state.user);
 	const { postId: paramPostId } = useParams();
 	const [comment, setComment] = useState("");
 	const [commentError, setCommentError] = useState(null);
+	const [comments, setComments] = useState([]);
+	console.log(comments);
 
 	const postId = propPostId || paramPostId; // Use prop if passed, else fallback to URL param
 
@@ -33,11 +35,29 @@ const CommentSection = ({ postId: propPostId }) => {
 			if (res.ok) {
 				setComment("");
 				setCommentError(null);
+				setComments([data, ...comments]);
 			}
 		} catch (error) {
 			setCommentError(error.message);
 		}
 	};
+
+	// Fetch comments when postId changes
+	useEffect(() => {
+		const getComments = async () => {
+			try {
+				const res = await fetch(`/api/comment/getPostComments/${postId}`);
+				if (res.ok) {
+					const data = await res.json();
+					setComments(data);
+				}
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
+
+		getComments();
+	}, [postId]);
 
 	return (
 		<div className="max-w-2xl mx-auto w-full p-3">
@@ -91,6 +111,21 @@ const CommentSection = ({ postId: propPostId }) => {
 						</Alert>
 					)}
 				</form>
+			)}
+			{comments.length === 0 ? (
+				<p className="text-gray-500 text-sm my-5">No comments yet</p>
+			) : (
+				<>
+					<div className="text-sm text-gray-500 my-5 flex items-center gap-1">
+						<p>Comments</p>
+						<div className="border border-gray-300 rounded-md py-1 px-2 flex items-center gap-1">
+							<p>{comments.length}</p>
+						</div>
+					</div>
+					{comments.map((comment) => (
+						<Comment key={comment._id} comment={comment} />
+					))}
+				</>
 			)}
 		</div>
 	);

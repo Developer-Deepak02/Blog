@@ -64,14 +64,28 @@ export const deleteUser = async (req, res, next) => {
 		await User.findByIdAndDelete(req.params.userId);
 		res.status(200).json("User has been deleted");
 	} catch (error) {
-		 next(error);
+		next(error);
 	}
 };
 
-export const signout = (req,res,next)=>{
+export const signout = (req, res, next) => {
 	try {
-		res.clearCookie("access_token").status(200).json("User has been logged out")
+		res
+			.clearCookie("access_token")
+			.status(200)
+			.json("User has been logged out");
 	} catch (error) {
-		next(error)
+		next(error);
 	}
-}
+};
+
+export const getUser = async (req, res, next) => {
+	try {
+		const user = await User.findById(req.params.userId);
+		if(!user) return next(errorHandler(404, "User not found"))
+		const { password, ...rest } = user._doc;
+		res.status(200).json(rest);
+	} catch (error) {
+		next(error);
+	}
+};
