@@ -34,7 +34,7 @@ const createPost = () => {
 		}
 	};
 	return (
-		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-800 dark:text-white">
+		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
 			<h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
 			<form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-4 sm:flex-row items-center ">
@@ -66,7 +66,11 @@ const createPost = () => {
 						type="file"
 						accept="image/*"
 					/>
-					<Button type="button" outline className="w-full sm:w-48 h-10">
+					<Button
+						type="button"
+						outline
+						className="w-full sm:w-48 h-10 cursor-pointer"
+					>
 						Upload Image
 					</Button>
 				</div>

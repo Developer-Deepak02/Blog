@@ -18,7 +18,7 @@ const Dashbord = () => {
 	}, [location.search]);
 
 	return (
-		<div className="min-h-screen flex felx-col md:flex-row bg-gray-50 dark:bg-gray-900">
+		<div className="min-h-screen flex felx-col md:flex-row bg-gray-100 dark:bg-gray-800">
 			<div className="md:w-56 min-h-screen">
 				{/*sidebar  */}
 				<DashSidebar />

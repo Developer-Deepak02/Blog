@@ -111,7 +111,7 @@ const DashProfile = () => {
 						className="rounded-full w-full h-full border-8 border-gray-400 object-cover"
 					/>
 				</div>
-				<div className=" flex flex-col gap-4 mx-auto lg:w-1/2 md:w-2/3 sm:w-2/3">
+				<div className=" flex flex-col gap-4 mx-auto lg:w-1/2 md:w-2/3 w-[80vw]">
 					<TextInput
 						type="text"
 						id="username"

@@ -119,14 +119,14 @@ const Comment = ({ comment, onLike, onEdit , onDelete}) => {
 									<button
 										onClick={handleEdit}
 										type="button"
-										className="text-gray-400 hover:text-blue-500 cursor-pointer mt-1"
+										className="text-gray-400 hover:text-blue-500 cursor-pointer mt-1 ml-2"
 									>
 										Edit
 									</button>
 									<button
 										onClick={()=>onDelete(comment._id)}
 										type="button"
-										className="text-gray-400 hover:text-red-500 cursor-pointer mt-1"
+										className="text-gray-400 hover:text-red-500 cursor-pointer mt-1 ml-2"
 									>
 										Delete
 									</button>

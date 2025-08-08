@@ -65,22 +65,23 @@ const currentUser = useSelector((state) => state.user?.currentUser);
 	};
 
 	return (
-		<div className="p-3 max-w-3xl mx-auto min-h-screen">
+		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
 			<h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>
 			<form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-				<div className="flex flex-col gap-4 sm:flex-row justify-between">
+				<div className="flex flex-col gap-4 sm:flex-row items-center ">
 					<TextInput
 						type="text"
 						placeholder="Title"
 						required
 						id="title"
-						className="flex-1"
+						className="w-full sm:flex-1 h-10"
 						onChange={(e) =>
 							setFormData({ ...formData, title: e.target.value })
 						}
 						value={formData.title}
 					/>
 					<Select
+						className="w-full sm:w-48 h-10 cursor-pointer"
 						onChange={(e) =>
 							setFormData({ ...formData, category: e.target.value })
 						}
@@ -92,17 +93,18 @@ const currentUser = useSelector((state) => state.user?.currentUser);
 						<option value="nextjs">Next.js</option>
 					</Select>
 				</div>
-				<div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
+				<div className="flex flex-col gap-4 sm:flex-row items-center">
 					<FileInput
+						className="w-full sm:flex-1 h-10 cursor-pointer"
 						type="file"
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
 					/>
 					<Button
 						type="button"
-						gradientDuoTone="purpleToBlue"
 						size="sm"
 						outline
+						className="w-full sm:w-48 h-10 cursor-pointer"
 					>
 						Upload Image
 					</Button>
@@ -125,7 +127,10 @@ const currentUser = useSelector((state) => state.user?.currentUser);
 						setFormData({ ...formData, content: value });
 					}}
 				/>
-				<Button type="submit" gradientDuoTone="purpleToPink">
+				<Button
+					type="submit"
+					className="mt-4 sm:mt-0 cursor-pointer bg-blue-600"
+				>
 					Update post
 				</Button>
 				{publishError && (
