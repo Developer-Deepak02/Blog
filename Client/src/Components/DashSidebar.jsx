@@ -6,6 +6,7 @@ import {
 	HiMenu,
 	HiX,
 	HiDocumentText,
+	HiAnnotation,
 } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -117,15 +118,26 @@ const DashSidebar = () => {
 							</SidebarItem>
 						</Link>
 						{currentUser.isAdmin && (
-							<Link to="/dashboard?tab=posts">
-								<SidebarItem
-									active={tab === "posts"}
-									icon={HiDocumentText}
-									as="div"
-								>
-									Posts
-								</SidebarItem>
-							</Link>
+							<>
+								<Link to="/dashboard?tab=posts">
+									<SidebarItem
+										active={tab === "posts"}
+										icon={HiDocumentText}
+										as="div"
+									>
+										Posts
+									</SidebarItem>
+								</Link>
+								<Link to="/dashboard?tab=comments">
+									<SidebarItem
+										active={tab === "comments"}
+										icon={HiAnnotation}
+										as="div"
+									>
+										Comments
+									</SidebarItem>
+								</Link>
+							</>
 						)}
 
 						<SidebarItem
