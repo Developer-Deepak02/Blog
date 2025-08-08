@@ -2,9 +2,18 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-/* html {
-	background-color: #FAF9EE;
-} */
+html {
+  background-color: #F3F4F6; /* Light mode background */
+  color: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #1F2937; /* Dark mode background */
+    color: #E5E7EB;
+
+  }
+}
 
 body{
 	height: 100vh;

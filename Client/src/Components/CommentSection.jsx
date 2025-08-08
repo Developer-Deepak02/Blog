@@ -129,7 +129,7 @@ const CommentSection = ({ postId: propPostId }) => {
 	return (
 		<div className="max-w-2xl mx-auto w-full p-3">
 			{currentUser ? (
-				<div className="flex items-center gap-1 my-5 text-gray-500 text-sm">
+				<div className="flex items-center gap-1 my-5 text-gray-500  dark:text-gray-400 text-sm">
 					<p>Sign in as</p>
 					<Link
 						className="text-blue-500 hover:underline"
@@ -144,7 +144,7 @@ const CommentSection = ({ postId: propPostId }) => {
 					/>
 				</div>
 			) : (
-				<div className="text-sm text-gray-500 my-5">
+				<div className="text-sm text-gray-500 dark:text-gray-400 my-5">
 					You need to sign in to comment.
 					<Link className="text-blue-500 hover:underline" to={"/signin"}>
 						{" "}
@@ -154,7 +154,7 @@ const CommentSection = ({ postId: propPostId }) => {
 			)}
 			{currentUser && (
 				<form
-					className="border border-gray-200 rounded-md p-3"
+					className="border border-gray-200 dark:border-gray-700 rounded-md p-3"
 					onSubmit={handleSubmit}
 				>
 					<Textarea

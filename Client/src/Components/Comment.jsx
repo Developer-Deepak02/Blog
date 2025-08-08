@@ -49,7 +49,7 @@ const Comment = ({ comment, onLike, onEdit , onDelete}) => {
 	};
 
 	return (
-		<div className="flex p-4 border-b dark:border-gray-300 border-gray-100 text-sm">
+		<div className="flex p-4 border-b dark:border-gray-600 border-gray-100 text-sm">
 			<div className="flex-shrink-0 mr-3">
 				<img
 					className="w-10 h-10 rounded-full object-cover"
@@ -59,7 +59,7 @@ const Comment = ({ comment, onLike, onEdit , onDelete}) => {
 			</div>
 			<div className="flex-1">
 				<div className="flex items-center mb-2">
-					<span className="text-sm font-semibold mr-1 truncate text-gray-700">
+					<span className="text-sm font-semibold mr-1 truncate text-gray-700 dark:text-gray-300">
 						{user?.username ? `@${user.username}` : `Anonymous User`}
 					</span>
 					<span className="text-xs text-gray-500">
@@ -95,7 +95,7 @@ const Comment = ({ comment, onLike, onEdit , onDelete}) => {
 					</>
 				) : (
 					<>
-						<p className="text-gray-500 mb-2">{comment.content}</p>
+						<p className="text-gray-500 dark:text-gray-400 mb-2">{comment.content}</p>
 						<div className=" flex item-center gap-1 pt-2 text-xs ">
 							<button
 								type="button"
