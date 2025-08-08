@@ -4,7 +4,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 
-const Comment = ({ comment, onLike , onEdit}) => {
+const Comment = ({ comment, onLike, onEdit , onDelete}) => {
 	const { currentUser } = useSelector((state) => state.user);
 	const [user, setUser] = useState({});
 	const [isEditing, setIsEditing] = useState(false);
@@ -41,13 +41,12 @@ const Comment = ({ comment, onLike , onEdit}) => {
 			});
 			if (res.ok) {
 				setIsEditing(false);
-				onEdit(comment, editedContent)
+				onEdit(comment, editedContent);
 			}
 		} catch (error) {
 			console.log(error.message);
 		}
 	};
-
 
 	return (
 		<div className="flex p-4 border-b dark:border-gray-300 border-gray-100 text-sm">
@@ -75,13 +74,16 @@ const Comment = ({ comment, onLike , onEdit}) => {
 							onChange={(e) => setEditedContent(e.target.value)}
 						/>
 						<div className="flex justify-end gap-2 text-xs">
-							<Button className="cursor-pointer"
-							type="button" 
-							size="xs"
-							onClick={handleSave}>
+							<Button
+								className="cursor-pointer"
+								type="button"
+								size="xs"
+								onClick={handleSave}
+							>
 								Save
 							</Button>
-							<Button className="cursor-pointer"
+							<Button
+								className="cursor-pointer"
 								type="button"
 								size="xs"
 								outline
@@ -113,13 +115,22 @@ const Comment = ({ comment, onLike , onEdit}) => {
 										(comment.numberOfLikes > 1 ? "likes" : "like")}
 							</p>
 							{currentUser && currentUser._id === comment.userId && (
-								<button
-									onClick={handleEdit}
-									type="button"
-									className="text-gray-400 hover:text-blue-500 cursor-pointer mt-1"
-								>
-									Edit
-								</button>
+								<>
+									<button
+										onClick={handleEdit}
+										type="button"
+										className="text-gray-400 hover:text-blue-500 cursor-pointer mt-1"
+									>
+										Edit
+									</button>
+									<button
+										onClick={()=>onDelete(comment._id)}
+										type="button"
+										className="text-gray-400 hover:text-red-500 cursor-pointer mt-1"
+									>
+										Delete
+									</button>
+								</>
 							)}
 						</div>
 					</>
