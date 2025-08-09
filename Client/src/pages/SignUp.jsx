@@ -45,7 +45,7 @@ const SignUp = () => {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900 px-4">
-			<div className="flex p-6  sm:p-8 md:p-12 lg:p-16 max-w-4xl w-full flex-col md:flex-row md:items-center gap-12 border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-2xl mt-8 sm:mt-0 mb-8 sm:mb-0">
+			<div className="flex p-6  sm:p-8 md:p-12 lg:p-16 max-w-4xl w-full flex-col md:flex-row md:items-center gap-12 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xs rounded-md mt-8 sm:mt-0 mb-8 sm:mb-0">
 				{/* Left Section */}
 				<div className="md:w-1/2 flex flex-col justify-center gap-6 text-center md:text-left items-center md:items-start">
 					<Link

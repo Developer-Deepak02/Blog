@@ -116,13 +116,13 @@ const FooterCompoment = () => {
 				<FooterDivider />
 
 				{/* Bottom section */}
-				<div className="w-full sm:flex sm:justify-between sm:items-center">
+				<div className="w-full flex justify-between items-center align-middle">
 					<FooterCopyright
 						href="/"
 						by="MindDraft"
 						year={new Date().getFullYear()}
 					/>
-					<div className="flex gap-6 mt-4 sm:mt-0 justify-center sm:justify-start">
+					<div className="flex gap-6 mt-0  justify-center sm:justify-start">
 						<FooterIcon
 							href="#"
 							icon={BsFacebook}

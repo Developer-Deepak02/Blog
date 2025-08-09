@@ -46,8 +46,8 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 px-4 py-8">
-			<div className="flex flex-col md:flex-row max-w-5xl w-full gap-12 border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-2xl p-6 md:p-12 lg:p-16">
+		<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 px-4 py-8">
+			<div className="flex flex-col md:flex-row max-w-5xl w-full gap-12 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 shadow-2xs rounded-md p-6 md:p-12 lg:p-16">
 				{/* Left Section */}
 				<div className="md:w-1/2 flex flex-col justify-center gap-6">
 					<Link

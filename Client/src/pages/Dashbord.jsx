@@ -1,10 +1,10 @@
-import React, { use } from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashSidebar from "../Components/DashSidebar";
 import DashProfile from "../Components/DashProfile";
 import DashPosts from "../Components/DashPosts";
 import DashComments from "../Components/DashComments";
+import DashboardComp from "../Components/DashboardComp";
 
 const Dashbord = () => {
 	const location = useLocation();
@@ -19,17 +19,19 @@ const Dashbord = () => {
 	}, [location.search]);
 
 	return (
-		<div className="min-h-screen flex felx-col md:flex-row bg-gray-100 dark:bg-gray-800">
-			<div className="md:w-56 min-h-screen">
-				{/*sidebar  */}
+		<div className="flex flex-col md:flex-row min-h-screen bg-gray-50 dark:bg-gray-800">
+			{/* Sidebar */}
+			<div className="md:w-56 w-full">
 				<DashSidebar />
 			</div>
-			{/* profile.... */}
-			{tab === "profile" && <DashProfile />}
-			{/* posts */}
-			{tab === "posts" && <DashPosts />}
-			{/* comments */}
-			{tab === "comments" && <DashComments/>}
+
+			{/* Main Content */}
+			<main className="flex-1 p-4">
+				{tab === "profile" && <DashProfile />}
+				{tab === "posts" && <DashPosts />}
+				{tab === "comments" && <DashComments />}
+				{(tab === "dash" || tab === "") && <DashboardComp />}
+			</main>
 		</div>
 	);
 };

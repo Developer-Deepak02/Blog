@@ -99,7 +99,7 @@ const DashProfile = () => {
 	};
 
 	return (
-		<div className="mx-w-lg mx-auto p-3 bg-gray-100 dark:bg-gray-800 lex justify-center items-center w-full">
+		<div className="mx-w-lg md:max-w-[60vw] lg:max-w-[70vw] mx-auto bg-gray-50 dark:bg-gray-800 justify-center items-center w-full">
 			<h1 className="my-7 text-center font-semibold text-3xl text-gray-700 dark:text-gray-300">
 				Profile
 			</h1>

@@ -91,8 +91,8 @@ const DashPosts = () => {
 			{currentUser.isAdmin && userPosts.length > 0 ? (
 				<>
 					{/* Horizontal & vertical scroll container */}
-					<div className="relative max-w-full overflow-x-auto max-h-[80vh] md:h-[78vh] lg:max-h-[90vh] rounded-md border border-gray-200 dark:border-gray-700 ">
-						<div className="w-[85vw] md:w-[68vw] lg:w-[74vw] mx-auto overflow-y-auto ">
+					<div className="relative max-w-full overflow-x-auto max-h-[80vh] md:h-[78vh] lg:max-h-[90vh] rounded-md border border-gray-200 dark:border-gray-700 w-[85vw] md:w-[68vw] lg:w-[72vw] mx-auto">
+						<div className=" mx-auto overflow-y-auto ">
 							<Table>
 								<TableHead className="sticky top-0 z-20 bg-white dark:bg-gray-900">
 									<TableHeadCell className="sticky top-0 bg-white dark:bg-gray-900 z-20 ">

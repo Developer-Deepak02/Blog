@@ -1,55 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Sidebar, SidebarItem, SidebarItemGroup } from "flowbite-react";
+import React, { useEffect, useState } from "react";
 import {
 	HiUser,
 	HiArrowSmRight,
-	HiMenu,
-	HiX,
 	HiDocumentText,
 	HiAnnotation,
+	HiChartPie,
 } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { signoutSucess } from "../redux/userSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	Sidebar,
+	SidebarItem,
+	SidebarItems,
+	SidebarItemGroup,
+} from "flowbite-react";
 
-const DashSidebar = () => {
+export default function DashSidebar() {
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const [tab, setTab] = useState("");
-	const [isOpen, setIsOpen] = useState(false);
-	const sidebarRef = useRef();
 	const { currentUser } = useSelector((state) => state.user);
+	const [tab, setTab] = useState("");
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(location.search);
 		const tabFromUrl = urlParams.get("tab");
-		if (tabFromUrl) setTab(tabFromUrl);
-	}, [location.search]);
-
-	// Auto-close on outside click
-	useEffect(() => {
-		const handleClickOutside = (e) => {
-			if (
-				isOpen &&
-				sidebarRef.current &&
-				!sidebarRef.current.contains(e.target)
-			) {
-				setIsOpen(false);
-			}
-		};
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => document.removeEventListener("mousedown", handleClickOutside);
-	}, [isOpen]);
-
-	// Lock scroll on mobile when sidebar is open
-	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "";
+		if (tabFromUrl) {
+			setTab(tabFromUrl);
 		}
-	}, [isOpen]);
+	}, [location.search]);
 
 	const handleSignout = async () => {
 		try {
@@ -67,91 +46,116 @@ const DashSidebar = () => {
 		}
 	};
 
+	const menuItems = [
+		currentUser?.isAdmin && {
+			to: "/dashboard?tab=dash",
+			icon: HiChartPie,
+			label: "Dashboard",
+			active: tab === "dash" || !tab,
+		},
+		{
+			to: "/dashboard?tab=profile",
+			icon: HiUser,
+			label: "Profile",
+			active: tab === "profile",
+			labelText: currentUser?.isAdmin ? "Admin" : "User",
+		},
+		currentUser?.isAdmin && {
+			to: "/dashboard?tab=posts",
+			icon: HiDocumentText,
+			label: "Posts",
+			active: tab === "posts",
+		},
+		currentUser?.isAdmin && {
+			to: "/dashboard?tab=comments",
+			icon: HiAnnotation,
+			label: "Comments",
+			active: tab === "comments",
+		},
+	].filter(Boolean);
+
 	return (
-		<div className="bg-gray-100 dark:bg-gray-900">
-			{/* Hamburger Button */}
-			{!isOpen && (
-				<button
-					onClick={() => setIsOpen(true)}
-					className="md:hidden m-2  p-2 dark:bg-transparent text-gray-800 dark:text-white rounded-md shadow-md absolute z-50 "
-				>
-					<HiMenu className="text-xl" />
-				</button>
-			)}
-
-			{/* Sidebar Overlay */}
-			{isOpen && <div className="fixed inset-0 z-40  md:hidden" />}
-
-			{/* Sidebar */}
-			<div
-				ref={sidebarRef}
-				className={`fixed top-[4rem] left-0 z-50 h-auto md:static md:h-auto bg-gray-100 dark:bg-gray-900
-				${isOpen ? "translate-x-0" : "-translate-x-full"}
-					w-64 h-full
-					md:translate-x-0 md:relative md:h-screen md:block
-				`}
-			>
-				<Sidebar
-					aria-label="Sidebar"
-					className="w-64 min-h-full border-r-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 relative"
-				>
-					{/* Close Button */}
-					{isOpen && (
-						<button
-							onClick={() => setIsOpen(false)}
-							className="absolute top-3 right-3 text-gray-600 dark:text-gray-300 hover:text-red-500"
-						>
-							<HiX className="text-2xl" />
-						</button>
-					)}
-
-					<SidebarItemGroup className="mt-8 md:mt-0 flex flex-col gap-1 ">
-						<Link to="/dashboard?tab=profile">
+		<>
+			{/* Desktop Sidebar */}
+			<div className="hidden md:flex w-64 min-h-screen bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+				<Sidebar className="w-full h-full !bg-gray-50 dark:!bg-gray-800 !p-0 !rounded-none border-none shadow-none">
+					<SidebarItems className="!bg-gray-50 dark:!bg-gray-800 m-0 p-0">
+						<SidebarItemGroup className="flex flex-col gap-1">
+							{menuItems.map((item, idx) => (
+								<Link key={idx} to={item.to}>
+									<SidebarItem
+										active={item.active}
+										icon={item.icon}
+										label={item.labelText}
+										labelColor="dark"
+										as="div"
+										className="hover:bg-gray-200 transition-colors"
+									>
+										{item.label}
+									</SidebarItem>
+								</Link>
+							))}
 							<SidebarItem
-								active={tab === "profile"}
-								icon={HiUser}
-								label={currentUser.isAdmin ? "Admin" : "User"}
-								labelColor="dark"
-								as="div"
+								icon={HiArrowSmRight}
+								className="cursor-pointer hover:bg-red-100 text-red-600 transition-colors"
+								onClick={handleSignout}
 							>
-								Profile
+								Sign Out
 							</SidebarItem>
-						</Link>
-						{currentUser.isAdmin && (
-							<>
-								<Link to="/dashboard?tab=posts">
-									<SidebarItem
-										active={tab === "posts"}
-										icon={HiDocumentText}
-										as="div"
-									>
-										Posts
-									</SidebarItem>
-								</Link>
-								<Link to="/dashboard?tab=comments">
-									<SidebarItem
-										active={tab === "comments"}
-										icon={HiAnnotation}
-										as="div"
-									>
-										Comments
-									</SidebarItem>
-								</Link>
-							</>
-						)}
-
-						<SidebarItem
-							onClick={handleSignout}
-							icon={HiArrowSmRight}
-							className="cursor-pointer"
-						>
-							Sign Out
-						</SidebarItem>
-					</SidebarItemGroup>
+						</SidebarItemGroup>
+					</SidebarItems>
 				</Sidebar>
 			</div>
-		</div>
-	);
-};
 
-export default DashSidebar;
+			{/* Mobile Navigation */}
+			<div className="md:hidden w-full bg-white dark:bg-gray-800  shadow-md z-10 p-3 space-y-3">
+				{/* First Row: Dashboard + Profile */}
+				<div className="grid grid-cols-2 gap-2">
+					{menuItems.slice(0, 2).map((item, idx) => (
+						<Link key={idx} to={item.to}>
+							<button
+								className={`flex flex-col items-center text-sm rounded-lg p-2 transition-colors w-full dark:text-gray-100 border border-gray-300 dark:border-gray-700 ${
+									item.active
+										? "bg-blue-500 text-white"
+										: "text-gray-600 hover:bg-gray-600"
+								}`}
+							>
+								<item.icon className="text-lg" />
+								<span className="text-xs mt-1">{item.label}</span>
+							</button>
+						</Link>
+					))}
+				</div>
+
+				{/* Second Row: Posts + Comments */}
+				<div className="grid grid-cols-2 gap-2">
+					{menuItems.slice(2, 4).map((item, idx) => (
+						<Link key={idx} to={item.to}>
+							<button
+								className={`flex flex-col items-center text-sm rounded-lg p-2 transition-colors w-full dark:text-gray-100 border border-gray-300 dark:border-gray-700  ${
+									item.active
+										? "bg-blue-500 text-white"
+										: "text-gray-600 hover:bg-gray-600"
+								}`}
+							>
+								<item.icon className="text-lg" />
+								<span className="text-xs mt-1">{item.label}</span>
+							</button>
+						</Link>
+					))}
+				</div>
+
+				{/* Third Row: Sign Out (full width) */}
+				<div>
+					<button
+						onClick={handleSignout}
+						className="flex justify-center items-center gap-2 text-sm rounded-lg p-2 w-full text-red-600 hover:bg-red-100 transition-colors border border-gray-300 dark:border-gray-700"
+					>
+						<HiArrowSmRight className="text-lg" />
+						<span>Sign Out</span>
+					</button>
+				</div>
+			</div>
+		</>
+	);
+}
