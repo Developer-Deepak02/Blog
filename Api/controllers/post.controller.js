@@ -48,12 +48,15 @@ export const create = async (req, res, next) => {
  */
 export const getposts = async (req, res, next) => {
 	try {
-		// Parse query parameters
-		const startIndex = parseInt(req.query.startIndex) || 0;
-		const limit = parseInt(req.query.limit) || 9;
+		// Parse page & limit from query
+		const page = parseInt(req.query.page) || 1; // default page 1
+		const limit = parseInt(req.query.limit) || 9; // default 9 posts per page
+		const skip = (page - 1) * limit; // calculate skip based on page
+
 		const sortDirection = req.query.order === "asc" ? 1 : -1;
-		// fetch posts
-		const posts = await Post.find({
+
+		// Build filter object
+		const filter = {
 			...(req.query.userId && { userId: req.query.userId }),
 			...(req.query.category && { category: req.query.category }),
 			...(req.query.slug && { slug: req.query.slug }),
@@ -64,35 +67,44 @@ export const getposts = async (req, res, next) => {
 					{ content: { $regex: req.query.searchTerm, $options: "i" } },
 				],
 			}),
-		})
+		};
+
+		// Fetch posts for the given page
+		const posts = await Post.find(filter)
 			.sort({ updatedAt: sortDirection })
-			.skip(startIndex)
+			.skip(skip)
 			.limit(limit);
-		// Count total number of posts
-		const totalPosts = await Post.countDocuments();
-		// Count total number of posts
+
+		// Count total posts for pagination
+		const totalPosts = await Post.countDocuments(filter);
+		const totalPages = Math.ceil(totalPosts / limit);
+
+		// Count last month's posts
 		const now = new Date();
 		const oneMonthAgo = new Date(
 			now.getFullYear(),
 			now.getMonth() - 1,
 			now.getDate()
 		);
-
 		const lastMonthPosts = await Post.countDocuments({
+			...filter,
 			createdAt: { $gte: oneMonthAgo },
 		});
 
-		// Send response with posts and stats
 		res.status(200).json({
 			posts,
 			totalPosts,
+			totalPages, // important for frontend pagination
+			currentPage: page,
 			lastMonthPosts,
 		});
 	} catch (error) {
-		// Handle errors
 		next(error);
 	}
 };
+
+
+
 
 // delete post
 
