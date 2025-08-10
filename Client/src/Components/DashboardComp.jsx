@@ -113,7 +113,7 @@ export default function DashboardComp() {
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-4 py-3 mx-auto justify-center lg:w-full lg:justify-between ">
+			<div className="flex flex-wrap gap-4 lg:gap-2 py-3 mx-auto justify-center lg:w-full lg:justify-between overflow-scroll ">
 				<div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 lg:w-[23vw]">
 					<div className="flex justify-between  p-3 text-sm font-semibold">
 						<h1 className="text-center p-2">Recent comments</h1>
@@ -139,10 +139,10 @@ export default function DashboardComp() {
 							))}
 					</Table>
 				</div>
-				<div className="flex flex-col w-full md:w-auto lg:w-[45vw] shadow-md p-2 rounded-md dark:bg-gray-800">
+				<div className="flex flex-col w-full md:w-auto lg:w-[42vw] shadow-md p-2 rounded-md dark:bg-gray-800 overflow-scroll">
 					<div className="flex justify-between  p-3 text-sm font-semibold">
 						<h1 className="text-center p-2">Recent posts</h1>
-						<Button outline gradientDuoTone="purpleToPink">
+						<Button outline>
 							<Link to={"/dashboard?tab=posts"}>See all</Link>
 						</Button>
 					</div>
@@ -163,7 +163,7 @@ export default function DashboardComp() {
 												className="w-14 h-10 rounded-md bg-gray-500"
 											/>
 										</TableCell>
-										<TableCell className="w-96 truncate line-clamp-2">
+										<TableCell className="w-40 md:w-96  truncate line-clamp-2">
 											{post.title}
 										</TableCell>
 										<TableCell className="w-5">{post.category}</TableCell>

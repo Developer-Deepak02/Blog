@@ -116,8 +116,8 @@ export default function DashSidebar() {
 							<button
 								className={`flex flex-col items-center text-sm rounded-lg p-2 transition-colors w-full dark:text-gray-100 border border-gray-300 dark:border-gray-700 ${
 									item.active
-										? "bg-blue-500 text-white"
-										: "text-gray-600 hover:bg-gray-600"
+										? "bg-blue-500 text-white hover:cursor-pointer"
+										: "text-gray-600 hover:bg-gray-600 hover:text-white hover:cursor-pointer"
 								}`}
 							>
 								<item.icon className="text-lg" />
@@ -134,8 +134,8 @@ export default function DashSidebar() {
 							<button
 								className={`flex flex-col items-center text-sm rounded-lg p-2 transition-colors w-full dark:text-gray-100 border border-gray-300 dark:border-gray-700  ${
 									item.active
-										? "bg-blue-500 text-white"
-										: "text-gray-600 hover:bg-gray-600"
+										? "bg-blue-500 text-white hover:cursor-pointer"
+										: "text-gray-600 hover:bg-gray-600 hover:text-white hover:cursor-pointer"
 								}`}
 							>
 								<item.icon className="text-lg" />
@@ -149,7 +149,7 @@ export default function DashSidebar() {
 				<div>
 					<button
 						onClick={handleSignout}
-						className="flex justify-center items-center gap-2 text-sm rounded-lg p-2 w-full text-red-600 hover:bg-red-100 transition-colors border border-gray-300 dark:border-gray-700"
+						className="flex justify-center items-center gap-2 text-sm rounded-lg p-2 w-full text-red-600 hover:bg-red-100 transition-colors border border-gray-300 dark:border-gray-700 hover:cursor-pointer"
 					>
 						<HiArrowSmRight className="text-lg" />
 						<span>Sign Out</span>

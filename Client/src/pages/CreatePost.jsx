@@ -34,7 +34,7 @@ const createPost = () => {
 		}
 	};
 	return (
-		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
+		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-800 dark:text-white">
 			<h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
 			<form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-4 sm:flex-row items-center ">
@@ -55,9 +55,11 @@ const createPost = () => {
 						}
 					>
 						<option value="uncategorized">Select Category</option>
-						<option value="javscript">JavaScript</option>
-						<option value="reactjs">reactjs</option>
-						<option value="nextjs">nextjs</option>
+						<option value="Technology">Technology</option>
+						<option value="LifeStyle">LifeStyle</option>
+						<option value="News">News</option>
+						<option value="International">International</option>
+						<option value="Jobs">Jobs</option>
 					</Select>
 				</div>
 				<div className="flex flex-col gap-4 sm:flex-row items-center">

@@ -13,8 +13,7 @@ import {
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutSucess } from "../redux/userSlice";
 
@@ -23,12 +22,11 @@ const Header = () => {
 	const { currentUser } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
-	// handle signout	-->	-->	-->
+	const [searchTerm, setSearchTerm] = useState("");
+
 	const handleSignout = async () => {
 		try {
-			const res = await fetch("/api/user/signout", {
-				method: "POST",
-			});
+			const res = await fetch("/api/user/signout", { method: "POST" });
 			const data = await res.json();
 			if (!res.ok) {
 				console.log(data.message);
@@ -57,22 +55,20 @@ const Header = () => {
 				Draft
 			</Link>
 
-			{/* Right side */}
+			{/* Right Actions */}
 			<div className="flex gap-4 items-center md:order-2">
-				{/* Search (shown only on large screens) */}
+				{/* Desktop Search */}
 				<form className="hidden lg:block">
 					<TextInput
 						type="text"
 						placeholder="Search..."
 						rightIcon={AiOutlineSearch}
 						onChange={(e) => setSearchTerm(e.target.value)}
+						value={searchTerm}
 					/>
 				</form>
-				{/* Theme toggle button */}
-				<Button outline size="sm" className="rounded-md cursor-pointer">
-					<FaMoon />
-				</Button>
-				{/* Auth dropdown / Sign in */}
+
+				{/* Auth */}
 				{currentUser ? (
 					<div className="relative z-50">
 						<Dropdown
@@ -89,19 +85,19 @@ const Header = () => {
 						>
 							<DropdownHeader>
 								<span className="block text-sm font-medium">
-									username : @{currentUser?.username}
+									@{currentUser?.username}
 								</span>
 								<span className="block text-sm truncate">
-									Email : {currentUser?.email}
+									{currentUser?.email}
 								</span>
 							</DropdownHeader>
-
+							<Link to="/dashboard?tab=dash">
+								<DropdownItem>Dashboard</DropdownItem>
+							</Link>
 							<Link to="/dashboard?tab=profile">
 								<DropdownItem>Profile</DropdownItem>
 							</Link>
-
 							<DropdownDivider />
-
 							<DropdownItem onClick={handleSignout}>Sign Out</DropdownItem>
 						</Dropdown>
 					</div>
@@ -113,20 +109,42 @@ const Header = () => {
 					</Link>
 				)}
 
-				{/* Mobile menu toggle */}
+				{/* Mobile Menu Toggle */}
 				<NavbarToggle />
 			</div>
 
-			{/* Collapsible nav links */}
+			{/* Collapsible Nav (Mobile) */}
 			<NavbarCollapse>
+				{/* Mobile Search */}
+				<form className="block lg:hidden mb-3">
+					<TextInput
+						type="text"
+						placeholder="Search..."
+						rightIcon={AiOutlineSearch}
+						onChange={(e) => setSearchTerm(e.target.value)}
+						value={searchTerm}
+					/>
+				</form>
+
 				<NavbarLink as={Link} to="/" active={path === "/"}>
 					Home
 				</NavbarLink>
 				<NavbarLink as={Link} to="/about" active={path === "/about"}>
 					About
 				</NavbarLink>
-				<NavbarLink as={Link} to="/projects" active={path === "/projects"}>
-					Projects
+				<NavbarLink
+					as={Link}
+					to="/create-post"
+					active={path === "/create-post"}
+				>
+					Write a post
+				</NavbarLink>
+				<NavbarLink
+					as={Link}
+					to="/dashboard?tab=dash"
+					active={path === "/dashboard?tab=dash"}
+				>
+					Dashboard
 				</NavbarLink>
 			</NavbarCollapse>
 		</Navbar>

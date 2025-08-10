@@ -3,6 +3,7 @@ import flowbite from "flowbite/plugin";
 import tailwindScrollbar from "tailwind-scrollbar";
 
 export default {
+	darkMode: "class", 
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
