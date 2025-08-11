@@ -11,7 +11,7 @@ import {
 	NavbarToggle,
 	TextInput,
 } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ import { signoutSucess } from "../redux/userSlice";
 
 const Header = () => {
 	const path = useLocation().pathname;
+	const navigate = useNavigate();
 	const { currentUser } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
@@ -35,6 +36,16 @@ const Header = () => {
 			}
 		} catch (error) {
 			console.log(error.message);
+		}
+	};
+
+	// 🔍 Handle search submit
+	const handleSearch = (e) => {
+		e.preventDefault();
+		const trimmedTerm = searchTerm.trim();
+		if (trimmedTerm) {
+			navigate(`/search?q=${encodeURIComponent(trimmedTerm)}`);
+			setSearchTerm("");
 		}
 	};
 
@@ -58,7 +69,7 @@ const Header = () => {
 			{/* Right Actions */}
 			<div className="flex gap-4 items-center md:order-2">
 				{/* Desktop Search */}
-				<form className="hidden lg:block">
+				<form onSubmit={handleSearch} className="hidden lg:block">
 					<TextInput
 						type="text"
 						placeholder="Search..."
@@ -116,7 +127,7 @@ const Header = () => {
 			{/* Collapsible Nav (Mobile) */}
 			<NavbarCollapse>
 				{/* Mobile Search */}
-				<form className="block lg:hidden mb-3">
+				<form onSubmit={handleSearch} className="block lg:hidden mb-3">
 					<TextInput
 						type="text"
 						placeholder="Search..."

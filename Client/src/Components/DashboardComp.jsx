@@ -113,7 +113,7 @@ export default function DashboardComp() {
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-4 lg:gap-2 py-3 mx-auto justify-center lg:w-full lg:justify-between overflow-scroll ">
+			<div className="flex flex-wrap gap-4 lg:gap-2 py-3 mx-auto justify-center lg:w-full lg:justify-between ">
 				<div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 lg:w-[23vw]">
 					<div className="flex justify-between  p-3 text-sm font-semibold">
 						<h1 className="text-center p-2">Recent comments</h1>

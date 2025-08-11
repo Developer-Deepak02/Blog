@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashbord from "./pages/Dashbord";
@@ -13,9 +13,9 @@ import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
 import ScrollToTop from "./Components/ScrollToTop";
-
+import SearchPage from "./pages/SearchPage"; 
 const App = () => {
-		return (
+	return (
 		<BrowserRouter>
 			<ScrollToTop />
 			<Header />
@@ -27,12 +27,12 @@ const App = () => {
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/post/:postSlug" element={<PostPage />} />
-
+				{/*  Search route */}
+				<Route path="/search" element={<SearchPage />} />
 				{/* private route */}
 				<Route element={<PrivateRoute />}>
 					<Route path="/dashboard" element={<Dashbord />} />
 				</Route>
-
 				{/* admin route */}
 				<Route element={<AdminPrivateRoute />}>
 					<Route path="/create-post" element={<CreatePost />} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 const HomePostCard = () => {
 	const [posts, setPosts] = useState([]);
@@ -105,9 +106,10 @@ const HomePostCard = () => {
 			{/* Grid Layout */}
 			<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{posts.map((post) => (
-					<div
+					<Link
+						to={`/post/${post.slug}`}
 						key={post._id}
-						className="bg-white dark:bg-gray-600 shadow-md rounded-lg overflow-hidden flex flex-col"
+						className="bg-white dark:bg-gray-700 shadow-xs border border-gray-200 dark:border-gray-600  rounded-lg overflow-hidden flex flex-col hover:shadow-xl transition-all"
 					>
 						<img
 							src={post.image || "/images/blog/default.jpg"}
@@ -118,22 +120,20 @@ const HomePostCard = () => {
 							}}
 						/>
 						<div className="p-5 flex flex-col flex-1">
-							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 line-clamp-2">
+							<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2">
 								{post.title}
 							</h2>
 							<p className="mt-2 text-gray-600 dark:text-gray-400 text-sm line-clamp-3 flex-grow">
 								{post.content.replace(/<[^>]+>/g, "")}
 							</p>
-							<div className="mt-4 flex justify-center">
-								<Link
-									to={`/post/${post.slug}`}
-									className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition cursor-pointer"
-								>
-									Read Full Article →
-								</Link>
-							</div>
+							<p className="flex justify-center  mt-4 text-white font-medium text-center p-2 rounded-md  bg-green-500 hover:bg-green-700 transition cursor-pointer duration-300">
+								<div className="flex items-center gap-2">
+									Read Full Article
+									<FaArrowRight />
+								</div>
+							</p>
 						</div>
-					</div>
+					</Link>
 				))}
 			</div>
 

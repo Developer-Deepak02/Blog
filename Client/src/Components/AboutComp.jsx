@@ -3,7 +3,7 @@ import React from "react";
 
 const AboutComp = () => {
 	return (
-		<section className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+		<section className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
 			<div className="max-w-6xl mx-auto px-6 py-16">
 				{/* Heading */}
 				<h1 className="text-4xl md:text-5xl font-bold text-center mb-6">
