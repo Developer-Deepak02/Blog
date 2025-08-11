@@ -5,36 +5,61 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React from "react";
+import { supabase } from "../utils/supabaseClient";
+import { CloudArrowUpIcon } from "@heroicons/react/24/outline"; // Heroicons
 
 export default function UpdatePost() {
 	const [formData, setFormData] = useState({});
 	const [publishError, setPublishError] = useState(null);
+	const [imageFile, setImageFile] = useState(null);
+	const [uploading, setUploading] = useState(false);
 	const { postId } = useParams();
-
 	const navigate = useNavigate();
-const currentUser = useSelector((state) => state.user?.currentUser);
+	const currentUser = useSelector((state) => state.user?.currentUser);
 
 	useEffect(() => {
-		try {
-			const fetchPost = async () => {
+		const fetchPost = async () => {
+			try {
 				const res = await fetch(`/api/post/getposts?postId=${postId}`);
 				const data = await res.json();
 				if (!res.ok) {
-					console.log(data.message);
 					setPublishError(data.message);
 					return;
 				}
-				if (res.ok) {
-					setPublishError(null);
-					setFormData(data.posts[0]);
-				}
-			};
-
-			fetchPost();
-		} catch (error) {
-			console.log(error.message);
-		}
+				setFormData(data.posts[0]);
+				setPublishError(null);
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
+		fetchPost();
 	}, [postId]);
+
+	const handleImageUpload = async () => {
+		if (!imageFile) return alert("Please select an image to upload.");
+
+		try {
+			setUploading(true);
+			const fileName = `${Date.now()}-${imageFile.name}`;
+			const { data, error } = await supabase.storage
+				.from("minddraft-blog-images")
+				.upload(fileName, imageFile);
+
+			if (error) throw error;
+
+			const {
+				data: { publicUrl },
+			} = supabase.storage.from("minddraft-blog-images").getPublicUrl(fileName);
+
+			setFormData((prev) => ({ ...prev, image: publicUrl }));
+			alert("Image uploaded successfully!");
+		} catch (err) {
+			console.error("Image upload failed:", err.message);
+			alert("Image upload failed.");
+		} finally {
+			setUploading(false);
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -54,38 +79,36 @@ const currentUser = useSelector((state) => state.user?.currentUser);
 				setPublishError(data.message);
 				return;
 			}
-
-			if (res.ok) {
-				setPublishError(null);
-				navigate(`/post/${data.slug}`);
-			}
+			setPublishError(null);
+			navigate(`/post/${data.slug}`);
 		} catch (error) {
 			setPublishError("Something went wrong");
 		}
 	};
 
 	return (
-		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
-			<h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>
+		<div className="p-3 max-w-3xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-800 dark:text-white">
+			<h1 className="text-center text-3xl my-7 font-semibold">Update Post</h1>
 			<form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-				<div className="flex flex-col gap-4 sm:flex-row items-center ">
+				{/* Title & Category */}
+				<div className="flex flex-col gap-4 sm:flex-row items-center">
 					<TextInput
 						type="text"
 						placeholder="Title"
 						required
 						id="title"
 						className="w-full sm:flex-1 h-10"
+						value={formData.title || ""}
 						onChange={(e) =>
 							setFormData({ ...formData, title: e.target.value })
 						}
-						value={formData.title}
 					/>
 					<Select
 						className="w-full sm:w-48 h-10 cursor-pointer"
+						value={formData.category || "uncategorized"}
 						onChange={(e) =>
 							setFormData({ ...formData, category: e.target.value })
 						}
-						value={formData.category}
 					>
 						<option value="uncategorized">Select a category</option>
 						<option value="javascript">JavaScript</option>
@@ -93,46 +116,53 @@ const currentUser = useSelector((state) => state.user?.currentUser);
 						<option value="nextjs">Next.js</option>
 					</Select>
 				</div>
+
+				{/* File input + Upload button */}
 				<div className="flex flex-col gap-4 sm:flex-row items-center">
 					<FileInput
 						className="w-full sm:flex-1 h-10 cursor-pointer"
 						type="file"
 						accept="image/*"
-						onChange={(e) => setFile(e.target.files[0])}
+						onChange={(e) => setImageFile(e.target.files[0])}
+						disabled={uploading}
 					/>
 					<Button
 						type="button"
-						size="sm"
+						className="w-full sm:w-48 h-10 flex items-center justify-center gap-2"
 						outline
-						className="w-full sm:w-48 h-10 cursor-pointer"
+						color="gray"
+						onClick={handleImageUpload}
+						disabled={uploading}
 					>
-						Upload Image
+						<CloudArrowUpIcon className="h-5 w-5" />
+						{uploading ? "Uploading..." : "Upload"}
 					</Button>
 				</div>
 
+				{/* Current image preview */}
 				{formData.image && (
 					<img
 						src={formData.image}
-						alt="upload"
-						className="w-full h-72 object-cover"
+						alt="Uploaded preview"
+						className="w-full h-72 object-cover rounded-md"
 					/>
 				)}
+
+				{/* Rich text editor */}
 				<ReactQuill
 					theme="snow"
-					value={formData.content}
+					value={formData.content || ""}
 					placeholder="Write something..."
 					className="h-72 mb-12"
 					required
-					onChange={(value) => {
-						setFormData({ ...formData, content: value });
-					}}
+					onChange={(value) => setFormData({ ...formData, content: value })}
 				/>
-				<Button
-					type="submit"
-					className="mt-4 sm:mt-0 cursor-pointer bg-blue-600"
-				>
-					Update post
+
+				{/* Submit */}
+				<Button type="submit" className="mt-4 cursor-pointer bg-blue-600">
+					Update Post
 				</Button>
+
 				{publishError && (
 					<Alert className="mt-5" color="failure">
 						{publishError}

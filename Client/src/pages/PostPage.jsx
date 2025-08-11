@@ -13,6 +13,12 @@ export default function PostPage() {
 	const [recentPosts, setRecentPosts] = useState(null);
 
 	useEffect(() => {
+		if (post) {
+			console.log("Image URL:", post.image);
+		}
+	}, [post]);
+
+	useEffect(() => {
 		const fetchPost = async () => {
 			try {
 				setLoading(true);
