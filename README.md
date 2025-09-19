@@ -15,7 +15,6 @@ A fully functional and responsive blog platform built using the **MERN stack**:
 - Create, Edit, and Delete Blog Posts
 - Comment System
 - Responsive Design
-- Dark Mode Support
 
 ## 💻 Tech Stack
 
@@ -28,3 +27,4 @@ A fully functional and responsive blog platform built using the **MERN stack**:
 
 🛠️ Project Status
 This project is currently under active development and will continue to receive updates.
+
